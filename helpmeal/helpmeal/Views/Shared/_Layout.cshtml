@@ -32,9 +32,32 @@
                     </button>
                     <a asp-controller="Home" asp-action="Index" class="navbar-brand dancing-font" style="font-size:30px">HelpMeal</a>
                 </div>
-                @RenderBody()
+                <div class="navbar-collapse collapse" id="navbar">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle menu-color" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-cog"></i>&nbsp;@User.Identity.Name<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="menu-color" asp-controller="UserSettings" asp-action="Index"><i class="fas fa-cog"></i> User settings</a></li>
+                                    <li style="margin-top: 2px; margin-bottom: 2px; border: 0; border-top: 1px solid rgba(0, 0, 0, 0.1);"> </li>
+                                    <li><a class="menu-color" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a class="menu-color" asp-controller="Account" asp-action="Login"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </nav>
+        @RenderBody()
     </div>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
