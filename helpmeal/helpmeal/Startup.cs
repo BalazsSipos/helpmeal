@@ -65,7 +65,7 @@ namespace helpmeal
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
             var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
-            if (temporalUnit.UnitId == 0)
+            if (temporalUnit == null)
             {
                 ApplicationDbInitializer.SeedUnits(applicationDbContext);
             }

@@ -25,7 +25,7 @@ namespace helpmeal.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DayEdit()// byte cycleDay)
+        public async Task<IActionResult> Edit()// byte cycleDay)
         {
             byte cycleDay = 1;
             var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User);
@@ -33,7 +33,7 @@ namespace helpmeal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DayEdit(long id)
+        public async Task<IActionResult> Edit(long id)
         {
             byte cycleDay = 1;
             var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User);

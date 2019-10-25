@@ -14,14 +14,12 @@ namespace helpmeal.Services.MealService
     public class MealService : IMealService
     {
         private readonly ApplicationDbContext applicationDbContext;
-        private readonly IMealService mealService;
         private readonly IMapper mapper;
         IBlobStorageService blobStorageService;
 
-        public MealService(ApplicationDbContext applicationDbContext, IMapper mapper, IBlobStorageService blobStorageService, IMealService mealService)
+        public MealService(ApplicationDbContext applicationDbContext, IMapper mapper, IBlobStorageService blobStorageService)
         {
             this.applicationDbContext = applicationDbContext;
-            this.mealService = mealService;
             this.mapper = mapper;
             this.blobStorageService = blobStorageService;
         }
