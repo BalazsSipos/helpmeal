@@ -64,11 +64,7 @@ namespace helpmeal
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
-            var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
-            if (temporalUnit == null)
-            {
-                ApplicationDbInitializer.SeedUnits(applicationDbContext);
-            }
+            ApplicationDbInitializer.SeedUnits(applicationDbContext);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
