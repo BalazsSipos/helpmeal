@@ -32,22 +32,6 @@ namespace helpmeal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
-        {
-            if (ModelState.IsValid)
-            {
-                var signInResult = await userService.LoginAsync(loginRequest);
-                if (signInResult.Succeeded)
-                {
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
-                }
-                loginRequest = await userService.CreateLoginRequest(String.Empty);
-                ModelState.AddModelError(string.Empty, "Invalid Email or Password");
-            }
-            return View(loginRequest);
-        }
-
-        [HttpPost]
         public IActionResult ExternalLogin(string provider, string returnUrl)
         {
             var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
