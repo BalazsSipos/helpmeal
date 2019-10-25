@@ -9,16 +9,15 @@
 @inject IIngredientService ingredientservice
 <h2>AddRecipie</h2>
 
-
 <form action="/addrecipie" method="post">
   Recipie name:<br>
   <input type="text" name="recipie_name"><br>
 
-  1. Ingredient Unit:<br>
+  Add ingredient and amount to your recipie:<br>
   <select name="Ingredient_unit1" class="form-control">
     @foreach (var unit in ingredientservice.FindAll())
     {
-      <option text="@unit.Name @unit.Unit">@unit.Name + @unit.Unit.Name</option>
+      <option text="@unit.Name @unit.Unit">@unit.Name</option>
     }
   </select>
   Amount:
@@ -26,34 +25,9 @@
   <input type="text" name="amount1">
   <br>
 
-  2. Ingredient Unit:<br>
-  <select name="Ingredient_unit2" class="form-control">
-    @foreach (var unit in ingredientservice.FindAll())
-    {
-      <option text="@unit.Name @unit.Unit">@unit.Name</option>
-    }
-  </select>
-  Amount:
-  <br>
-  <input type="text" name="amount2">
-  <br>
 
-  3. Ingredient Unit:<br>
-  <select name="Ingredient_unit3" class="form-control">
-    @foreach (var unit in ingredientservice.FindAll())
-    {
-      <option text="@unit.Name @unit.Unit">@unit.Name</option>
-    }
-  </select>
-  Amount:
-  <br>
-  <input type="text" name="amount3">
-  <br>
   Cooking Method:<br>
   <textarea name="CookingMethod"></textarea>
   <br />
-  <div class="form-group">
-    <input type="file" name="Image" lang="en" accept=".jpg, .png, .jpeg|image/*">
-  </div>
-  <input type="submit" value="Submit">
+  <input type="submit" value="save your recipie">
 </form>

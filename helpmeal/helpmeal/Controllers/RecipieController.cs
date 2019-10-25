@@ -43,10 +43,9 @@ namespace helpmeal.Controllers
             return View(ingredients);
         }
         [HttpPost("/addrecipie")]
-        public async Task<IActionResult> addRecipie(string recipie_name, string Ingredient_unit1, string amount1, string Ingredient_unit2, string amount2,
-            string Ingredient_unit3, string amount3, string CookingMethod, IFormFile image)
+        public IActionResult addRecipie(string recipie_name, string Ingredient_unit1, int amount1, string CookingMethod)
         {
-            CloudBlockBlob blob = await blobStorageService.MakeBlobFolderAndSaveImageAsync(recipie_name, image);
+
             return RedirectToAction(nameof(RecipieController.AddRecipie), "Recipie");
         }
     }

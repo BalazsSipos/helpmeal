@@ -6,9 +6,9 @@ using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
 using helpmeal.Services.IngredientService;
 using helpmeal.Services.MealService;
-using helpmeal.Services.MenuService;
 using helpmeal.Services.Profiles;
 using helpmeal.Services.UnitService;
+using helpmeal.Services.RecipeService;
 using helpmeal.Services.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,6 +56,8 @@ namespace helpmeal
             }
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMealService, MealService>();
+            services.AddTransient<IRecipeService, RecipeService>();
+
             services.SetUpAutoMapper();
             services.AddMvc();
             services.AddAuthentication()
@@ -69,7 +71,8 @@ namespace helpmeal
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
-                ApplicationDbInitializer.SeedUnits(applicationDbContext);
+
+            ApplicationDbInitializer.SeedUnits(applicationDbContext);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

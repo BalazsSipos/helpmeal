@@ -9,8 +9,8 @@ using helpmeal;
 namespace helpmeal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191025203259_init")]
-    partial class init
+    [Migration("20191025233439_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,8 +44,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4dc54848-89ed-411c-9d41-8d70bda8ab0e",
-                            ConcurrencyStamp = "4a0b7ca0-fe2f-4d85-84a8-55d0c564bf82",
+                            Id = "663172e4-dead-4950-988d-29f6290e82d1",
+                            ConcurrencyStamp = "4ddda7ca-9759-41f4-ae58-f769b645f31c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
