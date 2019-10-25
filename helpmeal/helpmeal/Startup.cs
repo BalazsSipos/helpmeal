@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
+using helpmeal.Services.Profiles;
+using helpmeal.Services.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +40,6 @@ namespace helpmeal
             })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
                 services.AddDbContext<ApplicationDbContext>(build =>
@@ -55,29 +56,34 @@ namespace helpmeal
                     build.UseMySql(configuration.GetConnectionString("DefaultConnection"));
                 });
             }
-
+            services.AddTransient<IUserService, UserService>();
+            services.SetUpAutoMapper();
             services.AddMvc();
-
-            //services.AddAuthentication()
-            //    .AddGoogle(options =>
-            //    {
-            //        options.ClientId = "";
-            //        options.ClientSecret = "";
-            //    });
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "878629613299-5h3qgsic9d4bi8vq1ctuki2146u7qhf0.apps.googleusercontent.com";
+                    options.ClientSecret = "7_zykgr08DESNJqMmQc8j8PF";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
-            var tempUser = applicationDbContext.Units.Find(1);
-            if (tempUser == null)
+            var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
+            if (temporalUnit.UnitId == 0)
             {
-
                 ApplicationDbInitializer.SeedUnits(applicationDbContext);
             }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             app.UseStaticFiles();
             app.UseAuthentication();
