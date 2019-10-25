@@ -1,4 +1,4 @@
-@model List<Meal>
+@model WeeklySummaryViewModel
 @{
     ViewData["Title"] = "Menu";
 }
@@ -13,14 +13,17 @@
     </tr>
     </thead>
     <tbody>
+    @for (int i = 1; i <= (Model.NumberOfDaysInCycle * 7); i++)
+    {
         <tr>
-            <td></td>
-            <td></td>
+            <td>@i</td>
+            <td>@Model.MealList[0].Recipe.Name</td>
             <td>
-                <form asp-controller="Meal" asp-action="Edit" method="get" asp-route-Id="">
-                    <button type="submit">Edit</button>
+                <form asp-controller="Meal" asp-action="Edit" method="get" asp-route-Id="@i">
+                    <button type="submit" class="btn btn-warning">Edit</button>
                 </form>
             </td>
         </tr>
+    }
     </tbody>
 </table>

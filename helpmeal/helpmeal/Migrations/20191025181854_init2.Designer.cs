@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using helpmeal;
 
 namespace helpmeal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191025181854_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,8 +44,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "224443b0-3a9c-4d06-823c-e7126ca89f6b",
-                            ConcurrencyStamp = "2d277615-3305-4fe5-aa2a-d93a6b975ed1",
+                            Id = "c79cd0b3-ecdc-4be9-bcde-7972447f2f38",
+                            ConcurrencyStamp = "d7ebf6ed-014b-4a7c-873d-45e4c9271ce8",
                             Name = "User",
                             NormalizedName = "USER"
                         });

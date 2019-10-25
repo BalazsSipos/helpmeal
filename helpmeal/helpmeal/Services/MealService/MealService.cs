@@ -19,7 +19,7 @@ namespace helpmeal.Services.MenuService
         
         public async Task<List<Meal>> FindMealsByUserAsync(ClaimsPrincipal user)
         {
-            var mealList = await applicationDbContext.Meals.Where(m => m.User.Email.Equals(user.Identity.Name)).OrderBy(m => m.CycleDay).ToListAsync();
+            var mealList = await applicationDbContext.Meals.Include(m => m.Recipe).Where(m => m.User.Email.Equals(user.Identity.Name)).OrderBy(m => m.CycleDay).ToListAsync();
             return mealList;
         }
     }
