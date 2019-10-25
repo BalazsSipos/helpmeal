@@ -140,10 +140,12 @@ namespace helpmeal.Services.User
             return loginRequest;
         }
 
-        public async Task<byte> GetNumberOfWeeksInCycle(string user.Identity.Email)
+        public byte GetNumberOfWeeksInCycle(ClaimsPrincipal user)
         {
-            var numberOfWeeksInCycle = await 
-            return
+            var userInDb = userMgr.GetUserId(user);
+            var numberOfWeeksInCycle = applicationDbContext.UserSettings.FirstOrDefault(u => u.User.Id == userInDb).NumberOfWeeksInCycle;
+            return numberOfWeeksInCycle;
         }
     }
 }
+
