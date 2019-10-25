@@ -1,26 +1,26 @@
+@model List<Meal>
 @{
-    Layout = null;
+    ViewData["Title"] = "Menu";
 }
-
-<h1>Weekly summary</h1>
-
+<br />
+<h1 class="text-center">Weekly summary</h1><br />
 <table class="table">
+    <thead class="thead-light">
     <tr>
-        <th>Days</th>
-        <th>Meals</th>
-        <th></th>
+        <th scope="col">Days</th>
+        <th scope="col">Meals</th>
+        <th scope="col"></th>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td>
-            <form asp-controller="Meal">
-                <button type="button">Edit</button>
-            </form>
-        </td>
-    </tr>
-    
-    
-    
-    
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <form asp-controller="Meal" asp-action="Edit" method="get" asp-route-Id="">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
 </table>
