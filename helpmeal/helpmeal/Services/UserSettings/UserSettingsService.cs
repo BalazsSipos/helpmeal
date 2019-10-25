@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using helpmeal.Models.Identity;
+using helpmeal.Models.RequestModels.UserSettingsRequest;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -33,24 +34,12 @@ namespace helpmeal.Services.UserSettings
             return daysOfShopping;
         }
 
-        public async Task<byte> SetNumberOfWeeksInCycleAsync(string email, byte weeks)
+        public async Task<UserSettings> SetUserSettingsAsync(string email, EditUserSettingsRequest userSettingsReq)
         {
             var user = await userMgr.FindByEmailAsync(email);
-            
-            await applicationDbContext.ShoppingDaysOfWeeks.AddAsync(weeks)
-            return weeks;
+            var userSettings = mapper.Map<EditUserSettingsRequest, UserSettings>(userSettingsReq);
+            await applicationDbContext.AddAsync(userSettingsReq);
+            return userSettings;
         }
     }
-}
-
-
-
-public async Task<Restaurant> SaveRestaurantAsync(RestaurantRequest restaurantReq, string managerName)
-{
-    var manager = await userService.FindUserByNameOrEmailAsync(managerName);
-    var restaurant = mapper.Map<RestaurantRequest, Restaurant>(restaurantReq);
-    restaurant.Manager = manager;
-    await applicationDbContext.Restaurants.AddAsync(restaurant);
-    await applicationDbContext.SaveChangesAsync();
-    return restaurant;
 }
