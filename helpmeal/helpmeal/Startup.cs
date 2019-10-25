@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
 using helpmeal.Services.Profiles;
 using helpmeal.Services.User;
@@ -27,10 +28,10 @@ namespace helpmeal
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IBlobStorageService, BlobStorageService>();
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
                 services.AddDbContext<ApplicationDbContext>(build =>
@@ -47,7 +48,6 @@ namespace helpmeal
                     build.UseMySql(configuration.GetConnectionString("DefaultConnection"));
                 });
             }
-
             services.AddTransient<IUserService, UserService>();
             services.SetUpAutoMapper();
             services.AddMvc();
@@ -60,8 +60,13 @@ namespace helpmeal
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
+            var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
+            if (temporalUnit.UnitId == 0)
+            {
+                ApplicationDbInitializer.SeedUnits(applicationDbContext);
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,7 +77,6 @@ namespace helpmeal
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
