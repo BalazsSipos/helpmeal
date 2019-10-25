@@ -1,0 +1,7 @@
+﻿@model DailyMealViewModel
+@{
+    ViewData["Title"] = "Edit Daily Menu";
+    ViewData["Action"] = "Edit";
+    await Html.RenderPartialAsync("_DailyMenuShowPartial");
+    await Html.RenderPartialAsync("_DailyMenuAddPartial");
+}
