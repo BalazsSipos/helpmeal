@@ -8,5 +8,6 @@ namespace helpmeal.Services.UserSettings
     public interface IUserSettings
     {
         Task<byte> GetNumberOfWeeksInCycleAsync(string email);
+        Task<List<byte>> GetDaysOfShoppingAsync(string email);
     }
 }

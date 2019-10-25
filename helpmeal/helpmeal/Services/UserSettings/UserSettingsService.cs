@@ -17,5 +17,18 @@ namespace helpmeal.Services.UserSettings
             var user = await userMgr.FindByEmailAsync(email);
             return user.NumberOfWeeksInCycle;
         }
+
+        public async Task<List<byte>> GetDaysOfShoppingAsync(string email)
+        {
+            var user = await userMgr.FindByEmailAsync(email);
+            var days = user.ShoppingDaysOfWeek;
+            List<byte> daysOfShopping = new List<byte>();
+            foreach (var day in days)
+            {
+                daysOfShopping.Add(day.DaysOfShopping);
+            }
+            return daysOfShopping;
+        }
+
     }
 }
