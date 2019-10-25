@@ -9,5 +9,6 @@ namespace helpmeal.Services.UserSettings
     {
         Task<byte> GetNumberOfWeeksInCycleAsync(string email);
         Task<List<byte>> GetDaysOfShoppingAsync(string email);
+        Task<byte> SetNumberOfWeeksInCycleAsync(string email, byte weeks);
     }
 }
