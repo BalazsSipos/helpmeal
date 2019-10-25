@@ -56,12 +56,12 @@ namespace helpmeal
 
             services.AddMvc();
 
-            services.AddAuthentication()
-                .AddGoogle(options =>
-                {
-                    options.ClientId = "";
-                    options.ClientSecret = "";
-                });
+            /*            services.AddAuthentication()
+                            .AddGoogle(options =>
+                            {
+                                options.ClientId = "";
+                                options.ClientSecret = "";
+                            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
