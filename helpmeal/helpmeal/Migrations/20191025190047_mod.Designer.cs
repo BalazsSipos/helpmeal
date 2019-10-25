@@ -9,8 +9,8 @@ using helpmeal;
 namespace helpmeal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191025180438_init2")]
-    partial class init2
+    [Migration("20191025190047_mod")]
+    partial class mod
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,8 +44,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "419dc516-ceec-44a4-b952-53cb891492da",
-                            ConcurrencyStamp = "5ff53a89-678a-4ded-9310-3a21de5d7623",
+                            Id = "e941ee5b-fa69-4123-a1ec-2fe0556188e1",
+                            ConcurrencyStamp = "3315be0d-5d93-41a3-98e0-7d5534720e75",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -230,6 +230,8 @@ namespace helpmeal.Migrations
                     b.Property<long>("RecipeId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CookingMethod");
+
                     b.Property<string>("ImageUri");
 
                     b.Property<string>("Name");
@@ -369,12 +371,12 @@ namespace helpmeal.Migrations
             modelBuilder.Entity("helpmeal.Models.RecipeIngredient", b =>
                 {
                     b.HasOne("helpmeal.Models.Ingredient", "Ingredient")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("helpmeal.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

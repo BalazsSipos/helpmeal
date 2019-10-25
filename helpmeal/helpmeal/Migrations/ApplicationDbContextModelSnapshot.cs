@@ -42,13 +42,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = "419dc516-ceec-44a4-b952-53cb891492da",
-                            ConcurrencyStamp = "5ff53a89-678a-4ded-9310-3a21de5d7623",
-=======
-                            Id = "824697f6-2e04-4618-9813-fe4724540899",
-                            ConcurrencyStamp = "7ba53cb6-03c2-4162-adc6-df7d9cc8a897",
->>>>>>> e86600d1fdb742dfaa373c88938d4367ccfdbfc9
+                            Id = "e941ee5b-fa69-4123-a1ec-2fe0556188e1",
+                            ConcurrencyStamp = "3315be0d-5d93-41a3-98e0-7d5534720e75",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -374,12 +369,12 @@ namespace helpmeal.Migrations
             modelBuilder.Entity("helpmeal.Models.RecipeIngredient", b =>
                 {
                     b.HasOne("helpmeal.Models.Ingredient", "Ingredient")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("helpmeal.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

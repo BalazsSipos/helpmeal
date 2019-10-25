@@ -16,10 +16,14 @@
             {
                 <tr>
                     <td>
-                        @meal.Amount x
+                        @meal.Amount x @meal.Recipe.Name
                     </td>
                     <td>
-                        @meal.Recipe
+                        @foreach (var ingredients in meal.Recipe.RecipeIngredients)
+                        {
+                            var amountTotal = meal.Amount * ingredients.Amount;
+                            @amountTotal<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Unit.Name<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Name <br />
+                        }
                     </td>
                 </tr>
             }

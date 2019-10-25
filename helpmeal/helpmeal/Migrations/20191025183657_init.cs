@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace helpmeal.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -300,7 +300,7 @@ namespace helpmeal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "824697f6-2e04-4618-9813-fe4724540899", "7ba53cb6-03c2-4162-adc6-df7d9cc8a897", "User", "USER" });
+                values: new object[] { "dd16512a-5583-4c89-a907-a8157a5ad0a5", "52dcf938-7715-495c-a88e-89b2cd6b811b", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
