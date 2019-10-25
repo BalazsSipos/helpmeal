@@ -25,9 +25,8 @@ namespace helpmeal.Controllers
         [HttpGet]
         public async Task<IActionResult> UserSettings()
         {
-            string email = User.Identity.Email;
-            byte numberOfWeeksInCycle = await UserService.
-                timezoneService.GetTimezoneAsync(User.Identity.Name);
+            /*string email = User.Identity.Email;*/
+            byte numberOfWeeksInCycle = await UserService;
             return View();
         }
     }

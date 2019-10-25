@@ -15,6 +15,7 @@ namespace helpmeal.Services.User
         private readonly UserManager<AppUser> userMgr;
         private readonly SignInManager<AppUser> signInMgr;
         private readonly ApplicationDbContext applicationDbContext;
+
         public UserService(UserManager<AppUser> userMgr, SignInManager<AppUser> signInMgr, ApplicationDbContext applicationDbContext)
         {
             this.userMgr = userMgr;
@@ -129,13 +130,6 @@ namespace helpmeal.Services.User
                 ExternalLogins = await GetExternalAuthenticationSchemesAsync()
             };
             return loginRequest;
-        }
-
-        public byte GetNumberOfWeeksInCycle(ClaimsPrincipal user)
-        {
-            var userInDb = userMgr.GetUserId(user);
-            var numberOfWeeksInCycle = applicationDbContext.UserSettings.FirstOrDefault(u => u.User.Id == userInDb).NumberOfWeeksInCycle;
-            return numberOfWeeksInCycle;
         }
     }
 }
