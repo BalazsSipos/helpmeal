@@ -32,20 +32,6 @@
                     </button>
                     <a asp-controller="Home" asp-action="Index" class="navbar-brand dancing-font" style="font-size:30px">HelpMeal</a>
                 </div>
-                <div>
-                    <form asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                        @foreach (var provider in Model.ExternalLogins)
-                        {
-                            <button type="submit" name="provider" class="google-sign-in-button"
-                                    value="@provider.Name" title="Log in using your @provider.DisplayName account">
-                                <div id="google-customBtn">
-                                    <span class="google-icon"></span>
-                                    <span class="google-buttonText">Sign in with Google</span>
-                                </div>
-                            </button>
-                        }
-                    </form>
-                </div>
                 @RenderBody()
             </div>
         </nav>
