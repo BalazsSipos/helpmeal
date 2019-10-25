@@ -23,9 +23,9 @@ namespace helpmeal.Controllers
             {
                 return RedirectToAction(nameof(AccountController.Login), "Account");
             }
-            byte cycleDay = 1;
-            var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User);
-            return View(dailyMealViewModel);
+            byte today = 1;
+            var nextDaysMealViewModel = await mealService.BuildNextDaysMealViewModel(today, User);
+            return View(nextDaysMealViewModel);
         }
     }
 }

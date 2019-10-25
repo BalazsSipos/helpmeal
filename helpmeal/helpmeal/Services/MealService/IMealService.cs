@@ -12,5 +12,6 @@ namespace helpmeal.Services.MealService
     {
         Task<List<Meal>> GetMealListByCycleDayAndUserDayAsync(byte cycleDay, ClaimsPrincipal user);
         Task<DailyMealViewModel> BuildDailyMealViewModel(byte cycleDay, ClaimsPrincipal user);
+        Task<NextDaysMealViewModel> BuildNextDaysMealViewModel(byte today, ClaimsPrincipal user);
     }
 }

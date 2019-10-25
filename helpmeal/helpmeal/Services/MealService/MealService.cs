@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -32,6 +33,24 @@ namespace helpmeal.Services.MealService
                 Meals = mealList
             };
             return dailyMealViewModel;
+        }
+
+        public async Task<NextDaysMealViewModel> BuildNextDaysMealViewModel(byte today, ClaimsPrincipal user)
+        {
+            var todayMealList = await GetMealListByCycleDayAndUserDayAsync(today, user);
+            SortedList<int, List<Meal>> nextDaysMenus = new SortedList<int, List<Meal>>();
+            for (byte i = 1; i <= 7; i++)
+            {
+                var weeklyMealViewModel = await BuildDailyMealViewModel((byte)(today + i), user);
+                nextDaysMenus.Add(i, weeklyMealViewModel.Meals);
+            }
+
+            var nextDaysMealViewModel = new NextDaysMealViewModel
+            {
+                TodayMeals = todayMealList,
+                NextDaysMeals = nextDaysMenus
+            };
+            return nextDaysMealViewModel;
         }
 
         public async Task<List<Meal>> GetMealListByCycleDayAndUserDayAsync(byte cycleDay, ClaimsPrincipal user)
