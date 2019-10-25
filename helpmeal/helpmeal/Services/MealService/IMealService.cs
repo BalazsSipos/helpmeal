@@ -9,6 +9,6 @@ namespace helpmeal.Services.MealService
 {
     public interface IMealService
     {
-        Task<List<Meal>> GetMealListByCycleAndUserDayAsync(Meal meal, ClaimsPrincipal user);
+        Task<List<Meal>> GetMealListByCycleDayAndUserDayAsync(Meal meal, ClaimsPrincipal user);
     }
 }
