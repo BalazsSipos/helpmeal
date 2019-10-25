@@ -142,7 +142,7 @@ namespace helpmeal.Services.User
 
         public async Task<byte> GetNumberOfWeeksInCycle(string user.Identity.Email)
         {
-            var numberOfWeeksInCycle
+            var numberOfWeeksInCycle = await 
             return
         }
     }
