@@ -9,20 +9,20 @@ namespace helpmeal
     {
         public static void SeedIngredients()
         {
-            ApplicationUser user = new ApplicationUser
-            {
-                UserName = "SuperUser",
-                Email = "superUser@gmail.com"
-            };
+            //ApplicationUser user = new ApplicationUser
+            //{
+            //    UserName = "SuperUser",
+            //    Email = "superUser@gmail.com"
+            //};
         }
         public static void SeedMeals()
         {
             {
-                ApplicationUser user = new ApplicationUser
-                {
-                    UserName = "SuperUser",
-                    Email = "superUser@gmail.com"
-                };
+                //ApplicationUser user = new ApplicationUser
+                //{
+                //    UserName = "SuperUser",
+                //    Email = "superUser@gmail.com"
+                //};
             }
         }
     }
