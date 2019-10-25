@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
+using helpmeal.Services.Profiles;
+using helpmeal.Services.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,18 +28,10 @@ namespace helpmeal
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<AppUser, IdentityRole>(options =>
-            {
-                // Password settings
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = false;
-            })
+            services.AddTransient<IBlobStorageService, BlobStorageService>();
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
                 services.AddDbContext<ApplicationDbContext>(build =>
@@ -53,25 +48,35 @@ namespace helpmeal
                     build.UseMySql(configuration.GetConnectionString("DefaultConnection"));
                 });
             }
-
+            services.AddTransient<IUserService, UserService>();
+            services.SetUpAutoMapper();
             services.AddMvc();
-
-            /*            services.AddAuthentication()
-                            .AddGoogle(options =>
-                            {
-                                options.ClientId = "";
-                                options.ClientSecret = "";
-                            });*/
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "878629613299-5h3qgsic9d4bi8vq1ctuki2146u7qhf0.apps.googleusercontent.com";
+                    options.ClientSecret = "7_zykgr08DESNJqMmQc8j8PF";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
+            var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
+            if (temporalUnit.UnitId == 0)
+            {
+                ApplicationDbInitializer.SeedUnits(applicationDbContext);
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
-
+            else
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
