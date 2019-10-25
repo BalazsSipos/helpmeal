@@ -11,5 +11,6 @@ namespace helpmeal.Models.Identity
         public List<UserSetting> UserSettings { get; set; }
         public List<ShoppingDaysOfWeek> ShoppingDaysOfWeek { get; set; }
         public List<Meal> Meal { get; set; }
+        public byte NumberOfWeeksInCycle { get; set; }
     }
 }
