@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
 using helpmeal.Models.Identity;
 using helpmeal.Models.RequestModels.Account;
 using Microsoft.AspNetCore.Authentication;
@@ -15,13 +14,11 @@ namespace helpmeal.Services.User
     {
         private readonly UserManager<AppUser> userMgr;
         private readonly SignInManager<AppUser> signInMgr;
-        private readonly IMapper mapper;
         private readonly ApplicationDbContext applicationDbContext;
-        public UserService(UserManager<AppUser> userMgr, SignInManager<AppUser> signInMgr, IMapper mapper, ApplicationDbContext applicationDbContext)
+        public UserService(UserManager<AppUser> userMgr, SignInManager<AppUser> signInMgr, ApplicationDbContext applicationDbContext)
         {
             this.userMgr = userMgr;
             this.signInMgr = signInMgr;
-            this.mapper = mapper;
             this.applicationDbContext = applicationDbContext;
         }
         public async Task<AppUser> FindUserByNameOrEmailAsync(string nameOrEmailAddr)
