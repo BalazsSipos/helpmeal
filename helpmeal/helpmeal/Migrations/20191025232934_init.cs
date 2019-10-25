@@ -231,7 +231,7 @@ namespace helpmeal.Migrations
                     CycleDay = table.Column<byte>(nullable: false),
                     RecipeId = table.Column<long>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
-                    SpecialDate = table.Column<DateTime>(nullable: false)
+                    SpecialDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -300,7 +300,7 @@ namespace helpmeal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "dd16512a-5583-4c89-a907-a8157a5ad0a5", "52dcf938-7715-495c-a88e-89b2cd6b811b", "User", "USER" });
+                values: new object[] { "effa923e-5140-4935-b3b0-896c586dab25", "f8cc057a-1be3-4b1a-ad3b-0c2de3900830", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

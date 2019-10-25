@@ -42,8 +42,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e941ee5b-fa69-4123-a1ec-2fe0556188e1",
-                            ConcurrencyStamp = "3315be0d-5d93-41a3-98e0-7d5534720e75",
+                            Id = "effa923e-5140-4935-b3b0-896c586dab25",
+                            ConcurrencyStamp = "f8cc057a-1be3-4b1a-ad3b-0c2de3900830",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -210,7 +210,7 @@ namespace helpmeal.Migrations
 
                     b.Property<long?>("RecipeId");
 
-                    b.Property<DateTime>("SpecialDate");
+                    b.Property<DateTime?>("SpecialDate");
 
                     b.Property<string>("UserId");
 

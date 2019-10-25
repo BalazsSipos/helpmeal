@@ -1,1 +1,22 @@
-﻿
+﻿@model DailyMealViewModel
+
+<h2>Add new meal</h2>
+<form asp-controller="Meal" asp-action="Edit" method="post">
+    <div class="form-group">
+        <select asp-for="NewMeal.Recipe.RecipeId" class="form-control">
+            <option selected>Choose a recipe</option>
+            @foreach (var recipe in Model.Recipes)
+            {
+                <option value="@recipe.RecipeId">@recipe.Name</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label asp-for="NewMeal.Amount">Amount</label>
+        <input type="text" asp-for="NewMeal.Amount" class="form-control" />
+        <span asp-validation-for="NewMeal.Amount" class="text-danger"></span>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>
