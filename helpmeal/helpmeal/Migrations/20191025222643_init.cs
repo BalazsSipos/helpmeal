@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace helpmeal.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,8 @@ namespace helpmeal.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    NumberOfWeeksInCycle = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,26 +203,6 @@ namespace helpmeal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserSettings",
-                columns: table => new
-                {
-                    UserSettingId = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: true),
-                    numberOfWeeksInCycle = table.Column<byte>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserSettings", x => x.UserSettingId);
-                    table.ForeignKey(
-                        name: "FK_UserSettings_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Meals",
                 columns: table => new
                 {
@@ -300,7 +281,7 @@ namespace helpmeal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "824697f6-2e04-4618-9813-fe4724540899", "7ba53cb6-03c2-4162-adc6-df7d9cc8a897", "User", "USER" });
+                values: new object[] { "2c57d426-65d1-4311-868d-593ae798c40f", "a7d66aa5-9de7-492f-8553-7af6f6672f2d", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -368,11 +349,6 @@ namespace helpmeal.Migrations
                 name: "IX_ShoppingDaysOfWeeks_UserId",
                 table: "ShoppingDaysOfWeeks",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserSettings_UserId",
-                table: "UserSettings",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -400,9 +376,6 @@ namespace helpmeal.Migrations
 
             migrationBuilder.DropTable(
                 name: "ShoppingDaysOfWeeks");
-
-            migrationBuilder.DropTable(
-                name: "UserSettings");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

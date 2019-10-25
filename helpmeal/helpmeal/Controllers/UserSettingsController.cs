@@ -25,7 +25,7 @@ namespace helpmeal.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("/UserSettings")]
         public async Task<IActionResult> UserSettings(string email, EditUserSettingsViewModel editUserSettingsViewModel)
         {
             return View(editUserSettingsViewModel);

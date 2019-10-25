@@ -42,8 +42,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "824697f6-2e04-4618-9813-fe4724540899",
-                            ConcurrencyStamp = "7ba53cb6-03c2-4162-adc6-df7d9cc8a897",
+                            Id = "2c57d426-65d1-4311-868d-593ae798c40f",
+                            ConcurrencyStamp = "a7d66aa5-9de7-492f-8553-7af6f6672f2d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -157,6 +157,8 @@ namespace helpmeal.Migrations
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
+
+                    b.Property<byte>("NumberOfWeeksInCycle");
 
                     b.Property<string>("PasswordHash");
 
@@ -287,22 +289,6 @@ namespace helpmeal.Migrations
                     b.ToTable("Units");
                 });
 
-            modelBuilder.Entity("helpmeal.Models.UserSetting", b =>
-                {
-                    b.Property<long>("UserSettingId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("UserId");
-
-                    b.Property<byte>("numberOfWeeksInCycle");
-
-                    b.HasKey("UserSettingId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserSettings");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -383,13 +369,6 @@ namespace helpmeal.Migrations
                 {
                     b.HasOne("helpmeal.Models.Identity.AppUser", "User")
                         .WithMany("ShoppingDaysOfWeek")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("helpmeal.Models.UserSetting", b =>
-                {
-                    b.HasOne("helpmeal.Models.Identity.AppUser", "User")
-                        .WithMany("UserSettings")
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
