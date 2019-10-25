@@ -9,8 +9,8 @@ using helpmeal;
 namespace helpmeal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191025181116_mealsTableNullableDate")]
-    partial class mealsTableNullableDate
+    [Migration("20191025213308_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,8 +44,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "edbd94f2-08b9-428a-ad2d-075688ecfb98",
-                            ConcurrencyStamp = "08fc313c-ee9e-4c0f-a31b-232a50427d72",
+                            Id = "fda69db5-12b3-4107-baac-b94ea1853b21",
+                            ConcurrencyStamp = "6c2da111-bdf2-42f1-9a99-d1e92546213a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -229,6 +229,8 @@ namespace helpmeal.Migrations
                 {
                     b.Property<long>("RecipeId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CookingMethod");
 
                     b.Property<string>("ImageUri");
 

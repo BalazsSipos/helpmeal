@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using helpmeal.Models;
 using helpmeal.Services.MealService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,20 +25,43 @@ namespace helpmeal.Controllers
             return View();
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> Add(byte cycleDay)
+        //{
+        //    //byte cycleDay = 1;
+        //    var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User);
+        //    return View(dailyMealViewModel);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Add(byte cycleDay, Meal newMeal)
+        //{
+        //    //byte cycleDay = 1;
+        //    //var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User);
+        //    //return RedirectToAction(nameof(MealController.Edit), "Meal", new { cycleDay = cycleDay } );
+        //    //return View(dailyMealViewModel);
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> Edit()// byte cycleDay)
+        public async Task<IActionResult> Edit(byte id)
         {
-            byte cycleDay = 1;
-            var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User);
+            //byte cycleDay = 1;
+
+            var dailyMealViewModel = await mealService.BuildDailyMealViewModel(id, User, null);
             return View(dailyMealViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(long id)
+        public async Task<IActionResult> Edit(byte id, Meal newMeal)
         {
-            byte cycleDay = 1;
-            var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User);
+            if (ModelState.IsValid)
+            {
+                await mealService.AddMeal(id, User, newMeal);
+                newMeal = null;
+            }
+            var dailyMealViewModel = await mealService.BuildDailyMealViewModel(id, User, newMeal);
             return View(dailyMealViewModel);
+            //return RedirectToAction(nameof(MealController.Edit), "Meal", new { cycleDay = cycleDay });
         }
     }
 }

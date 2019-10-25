@@ -10,5 +10,7 @@ namespace helpmeal.Models.ViewModels
         public List<Meal> Meals { get; set; }
         public Meal NewMeal { get; set; }
         public DateTime DateTime { get; set; }
+        public List<Recipe> Recipes { get; set; }
+        public byte cycleDay { get; set; }
     }
 }

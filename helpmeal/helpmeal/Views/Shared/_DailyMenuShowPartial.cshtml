@@ -1,6 +1,6 @@
 ﻿@model DailyMealViewModel
 
-    <form asp-controller="Meal" asp-action="@ViewData["Action"]" method="post" asp-route-id="1">
+    <form asp-controller="Meal" asp-action="@ViewData["Action"]" method="post">
         @foreach (var meal in Model.Meals)
         {
             <div class="form-group">
