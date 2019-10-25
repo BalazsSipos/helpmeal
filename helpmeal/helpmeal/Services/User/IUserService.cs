@@ -13,7 +13,6 @@ namespace helpmeal.Services.User
     {
         Task<IdentityResult> CreateAsync(AppUser user);
         Task<LoginRequest> CreateLoginRequest(string returnUrl);
-        Task<SignInResult> LoginAsync(LoginRequest loginRequest);
         Task Logout();
         Task<AppUser> FindUserByNameOrEmailAsync(string emailAddr);
         Task<IList<AuthenticationScheme>> GetExternalAuthenticationSchemesAsync();
