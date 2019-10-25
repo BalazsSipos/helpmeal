@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
+using helpmeal.Services.MealService;
 using helpmeal.Services.Profiles;
 using helpmeal.Services.User;
 using Microsoft.AspNetCore.Builder;
@@ -49,6 +50,7 @@ namespace helpmeal
                 });
             }
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IMealService, MealService>();
             services.SetUpAutoMapper();
             services.AddMvc();
             services.AddAuthentication()
@@ -63,7 +65,7 @@ namespace helpmeal
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
             var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
-            if (temporalUnit.UnitId == 0)
+            if (temporalUnit == null)
             {
                 ApplicationDbInitializer.SeedUnits(applicationDbContext);
             }
