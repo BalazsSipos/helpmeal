@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FoodService.Services.BlobService;
+using helpmeal.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,21 +27,61 @@ namespace helpmeal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IBlobStorageService, BlobStorageService>();
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+            })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+            {
+                services.AddDbContext<ApplicationDbContext>(build =>
+                {
+                    build.UseMySql(configuration.GetConnectionString("AzureConnection"));
+                });
+                // Automatically perform database migration
+                services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(build =>
+                {
+                    build.UseMySql(configuration.GetConnectionString("DefaultConnection"));
+                });
+            }
+
             services.AddMvc();
+
+            //services.AddAuthentication()
+            //    .AddGoogle(options =>
+            //    {
+            //        options.ClientId = "";
+            //        options.ClientSecret = "";
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
-            ApplicationDbInitializer.SeedMeals();
-            ApplicationDbInitializer.SeedIngredients();
+            var tempUser = applicationDbContext.Units.Find(1);
+            if (tempUser == null)
+            {
+
+                ApplicationDbInitializer.SeedUnits(applicationDbContext);
+            }
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
