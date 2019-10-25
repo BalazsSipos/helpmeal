@@ -11,67 +11,101 @@ namespace helpmeal
     {
         public static void SeedUnits(ApplicationDbContext applicationDbContext)
         {
-            Unit unit = new Unit
+            var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
+            if (temporalUnit.Equals(null))
             {
-                Name = "kg"
-            };
-            Unit unit2 = new Unit
-            {
-                Name = "tbsp"
-            };
-            Unit unit3 = new Unit
-            {
-                Name = "g"
-            };
-            Unit unit4 = new Unit
-            {
-                Name = "ml"
-            };
-            Unit unit5 = new Unit
-            {
-                Name = "pc"
-            };
-            applicationDbContext.Units.Add(unit);
-            applicationDbContext.Units.Add(unit2);
-            applicationDbContext.Units.Add(unit3);
-            applicationDbContext.Units.Add(unit4);
-            applicationDbContext.Units.Add(unit5);
-            applicationDbContext.SaveChanges();
+                Unit unit = new Unit
+                {
+                    Name = "kg"
+                };
+                Unit unit2 = new Unit
+                {
+                    Name = "tbsp"
+                };
+                Unit unit3 = new Unit
+                {
+                    Name = "g"
+                };
+                Unit unit4 = new Unit
+                {
+                    Name = "ml"
+                };
+                Unit unit5 = new Unit
+                {
+                    Name = "pc"
+                };
+                applicationDbContext.Units.Add(unit);
+                applicationDbContext.Units.Add(unit2);
+                applicationDbContext.Units.Add(unit3);
+                applicationDbContext.Units.Add(unit4);
+                applicationDbContext.Units.Add(unit5);
+                applicationDbContext.SaveChanges();
 
-            Ingredient ingredient1 = new Ingredient
-            {
-                Name = "tészta",
-                Unit = unit3
-            };
-            Ingredient ingredient2 = new Ingredient
-            {
-                Name = "mák",
-                Unit = unit3
-            };
-            Ingredient ingredient3 = new Ingredient
-            {
-                Name = "porcukor",
-                Unit = unit3
-            };
-            Ingredient ingredient4 = new Ingredient
-            {
-                Name = "vaj",
-                Unit = unit3
-            };
+                Ingredient ingredient1 = new Ingredient
+                {
+                    Name = "tészta",
+                    Unit = unit3
+                };
+                Ingredient ingredient2 = new Ingredient
+                {
+                    Name = "mák",
+                    Unit = unit3
+                };
+                Ingredient ingredient3 = new Ingredient
+                {
+                    Name = "porcukor",
+                    Unit = unit3
+                };
+                Ingredient ingredient4 = new Ingredient
+                {
+                    Name = "vaj",
+                    Unit = unit3
+                };
 
-            applicationDbContext.Ingredients.Add(ingredient1);
-            applicationDbContext.Ingredients.Add(ingredient2);
-            applicationDbContext.Ingredients.Add(ingredient3);
-            applicationDbContext.Ingredients.Add(ingredient4);
-            applicationDbContext.SaveChanges();
+                applicationDbContext.Ingredients.Add(ingredient1);
+                applicationDbContext.Ingredients.Add(ingredient2);
+                applicationDbContext.Ingredients.Add(ingredient3);
+                applicationDbContext.Ingredients.Add(ingredient4);
+                applicationDbContext.SaveChanges();
 
-            Recipe recipe = new Recipe
-            {
-                Name = "Mákostészta",
-                ImageUri = "https://helpmealblobcontainer.blob.core.windows.net/devbabics/1/image.jpg"
-            };
-            applicationDbContext.Recipes.Add(recipe);
-            applicationDbContext.SaveChanges();
+                Recipe recipe = new Recipe
+                {
+                    Name = "Mákostészta",
+                    ImageUri = "https://helpmealblobcontainer.blob.core.windows.net/devbabics/1/image.jpg"
+                };
+                applicationDbContext.Recipes.Add(recipe);
+                applicationDbContext.SaveChanges();
+
+                RecipeIngredient recipeIngredient = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient1,
+                    Amount = 250
+                };
+                RecipeIngredient recipeIngredient2 = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient2,
+                    Amount = 25
+                };
+                RecipeIngredient recipeIngredient3 = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient3,
+                    Amount = 2
+                };
+                RecipeIngredient recipeIngredient4 = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient4,
+                    Amount = 500
+                };
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient);
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient2);
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient3);
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient4);
+                applicationDbContext.SaveChanges();
+            }
         }
     }
 }
