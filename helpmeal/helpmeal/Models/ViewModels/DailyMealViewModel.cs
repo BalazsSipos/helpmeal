@@ -7,7 +7,8 @@ namespace helpmeal.Models.ViewModels
 {
     public class DailyMealViewModel
     {
-        public Meal Meal { get; set; }
-        public Recipe Recipe { get; set; }
+        public List<Meal> Meals { get; set; }
+        public Meal NewMeal { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }
