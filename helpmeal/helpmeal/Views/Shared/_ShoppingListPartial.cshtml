@@ -1,33 +1,29 @@
 ﻿@model DailyMealViewModel
 <h1>Shopping list for next day</h1>
 
-@if (Model.Meals.Count != 0)
-{
-    <table class="table">
-        <thead class="thead-light">
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Quantity</th>
+            <th scope="col">Recipe</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var meal in Model.Meals)
+        {
             <tr>
-                <th scope="col">Quantity</th>
-
-                <th scope="col">Recipe</th>
+                <td>
+                    @meal.Amount x @meal.Recipe.Name
+                </td>
+                <td>
+                    @foreach (var ingredients in meal.Recipe.RecipeIngredients)
+                    {
+                        var amountTotal = meal.Amount * ingredients.Amount;
+                        @amountTotal<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Unit.Name<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Name <br />
+                    }
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var meal in Model.Meals)
-            {
-                <tr>
-                    <td>
-                        @meal.Amount x @meal.Recipe.Name
-                    </td>
-                    <td>
-                        @foreach (var ingredients in meal.Recipe.RecipeIngredients)
-                        {
-                            var amountTotal = meal.Amount * ingredients.Amount;
-                            @amountTotal<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Unit.Name<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Name <br />
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+        }
+    </tbody>
+</table>
 
