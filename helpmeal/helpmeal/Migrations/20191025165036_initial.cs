@@ -53,7 +53,8 @@ namespace helpmeal.Migrations
                 {
                     RecipeId = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ImageUri = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -220,6 +221,35 @@ namespace helpmeal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Meals",
+                columns: table => new
+                {
+                    MealId = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: true),
+                    CycleDay = table.Column<byte>(nullable: false),
+                    RecipeId = table.Column<long>(nullable: true),
+                    Amount = table.Column<int>(nullable: false),
+                    SpecialDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Meals", x => x.MealId);
+                    table.ForeignKey(
+                        name: "FK_Meals_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "RecipeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Meals_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ingredients",
                 columns: table => new
                 {
@@ -269,7 +299,7 @@ namespace helpmeal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0d2cd90a-05cc-4ca8-8972-bfd1cbe74f50", "33ad3bc8-7a75-44fa-b0df-3355b824aa90", "User", "USER" });
+                values: new object[] { "6e1961d9-a1c4-4300-9913-4e08946a7130", "51d040e0-11ab-48cf-9cf7-fce639ee62da", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -314,6 +344,16 @@ namespace helpmeal.Migrations
                 column: "UnitId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Meals_RecipeId",
+                table: "Meals",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Meals_UserId",
+                table: "Meals",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecipeIngredient_IngredientId",
                 table: "RecipeIngredient",
                 column: "IngredientId");
@@ -350,6 +390,9 @@ namespace helpmeal.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Meals");
 
             migrationBuilder.DropTable(
                 name: "RecipeIngredient");
