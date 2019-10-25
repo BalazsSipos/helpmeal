@@ -127,6 +127,7 @@ span.google-buttonText {
 /* Other */
 .dancing-font {
     font-family: 'Dancing Script', cursive;
+    color: aliceblue !important;
 }
 
 .inline {

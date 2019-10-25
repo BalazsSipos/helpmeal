@@ -32,6 +32,8 @@ namespace helpmeal
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
