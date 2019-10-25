@@ -11,8 +11,6 @@
 
 
 <form action="/addrecipie" method="post">
-
-
   Recipie name:<br>
   <input type="text" name="recipie_name"><br>
 
@@ -20,7 +18,7 @@
   <select name="Ingredient_unit1" class="form-control">
     @foreach (var unit in ingredientservice.FindAll())
     {
-      <option text="@unit.Name @unit.Unit">@unit.Name</option>
+      <option text="@unit.Name @unit.Unit">@unit.Name + @unit.Unit.Name</option>
     }
   </select>
   Amount:
@@ -59,10 +57,3 @@
   </div>
   <input type="submit" value="Submit">
 </form>
-
-
-
-<input type="button"
-       value="add ingredient"
-       onclick="location.href='<%: Url.Action(" Action", "Controller" ) %>'" />
-
