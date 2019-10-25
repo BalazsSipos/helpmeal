@@ -5,10 +5,6 @@ using System.Threading.Tasks;
 using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
 using helpmeal.Services.MealService;
-<<<<<<< HEAD
-=======
-using helpmeal.Services.MenuService;
->>>>>>> cdf824a95907fba4a85e73bad1fe6ea2f068aebc
 using helpmeal.Services.Profiles;
 using helpmeal.Services.RecipeService;
 using helpmeal.Services.User;
@@ -56,10 +52,8 @@ namespace helpmeal
             }
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMealService, MealService>();
-<<<<<<< HEAD
             services.AddTransient<IRecipeService, RecipeService>();
-=======
->>>>>>> cdf824a95907fba4a85e73bad1fe6ea2f068aebc
+
             services.SetUpAutoMapper();
             services.AddMvc();
             services.AddAuthentication()
