@@ -269,9 +269,6 @@ namespace helpmeal
                 applicationDbContext.RecipeIngredient.Add(recipeIngredient15);
                 applicationDbContext.RecipeIngredient.Add(recipeIngredient16);
                 applicationDbContext.SaveChanges();
-
-
-
             }
         }
     }

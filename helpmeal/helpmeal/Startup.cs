@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
+using helpmeal.Services.IngredientService;
 using helpmeal.Services.Profiles;
+using helpmeal.Services.UnitService;
 using helpmeal.Services.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +31,8 @@ namespace helpmeal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IBlobStorageService, BlobStorageService>();
+            services.AddTransient<IUnitService, UnitService>();
+            services.AddTransient<IIngredientService, IngredientService>();
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
