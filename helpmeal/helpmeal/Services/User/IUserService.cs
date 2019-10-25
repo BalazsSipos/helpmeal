@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using helpmeal.Models;
 
 namespace helpmeal.Services.User
 {
@@ -21,5 +23,6 @@ namespace helpmeal.Services.User
         Task<SignInResult> ExternalLoginSignInAsync(string loginProvider, string providerKey);
         Task<string> ExternalLoginCallbackAsync(string returnUrl, string remoteError);
         Task<SignInResult> RegisterExternalUserAsync(string emailAddr, ExternalLoginInfo userInfo);
+        Task<UserSetting> GetUserSettingByUserAsync(ClaimsPrincipal user);
     }
 }

@@ -13,6 +13,6 @@ namespace helpmeal.Models
         public byte CycleDay { get; set; }
         public Recipe Recipe { get; set; }
         public int Amount { get; set; }
-        public DateTime SpecialDate { get; set; }
+        public DateTime? SpecialDate { get; set; }
     }
 }

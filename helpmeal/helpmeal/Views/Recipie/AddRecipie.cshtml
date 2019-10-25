@@ -10,7 +10,6 @@
 <h2>AddRecipie</h2>
 
 
-
 <form action="/addrecipie" method="post">
 
 
@@ -29,7 +28,6 @@
   <input type="text" name="amount1">
   <br>
 
-
   2. Ingredient Unit:<br>
   <select name="Ingredient_unit2" class="form-control">
     @foreach (var unit in ingredientservice.FindAll())
@@ -41,7 +39,6 @@
   <br>
   <input type="text" name="amount2">
   <br>
-
 
   3. Ingredient Unit:<br>
   <select name="Ingredient_unit3" class="form-control">
@@ -56,6 +53,16 @@
   <br>
   Cooking Method:<br>
   <textarea name="CookingMethod"></textarea>
+  <br />
+  <div class="form-group">
+    <input type="file" name="Image" lang="en" accept=".jpg, .png, .jpeg|image/*">
+  </div>
   <input type="submit" value="Submit">
 </form>
+
+
+
+<input type="button"
+       value="add ingredient"
+       onclick="location.href='<%: Url.Action(" Action", "Controller" ) %>'" />
 

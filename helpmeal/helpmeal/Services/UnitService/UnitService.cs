@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using helpmeal.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +8,7 @@ namespace helpmeal.Services.UnitService
 {
     public class UnitService : IUnitService
     {
-        ApplicationDbContext applicationDbContext;
+        private readonly ApplicationDbContext applicationDbContext;
 
         public UnitService(ApplicationDbContext applicationDbContext)
         {
