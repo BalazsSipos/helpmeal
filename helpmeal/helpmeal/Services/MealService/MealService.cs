@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+>>>>>>> cdf824a95907fba4a85e73bad1fe6ea2f068aebc
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using AutoMapper;
 using FoodService.Services.BlobService;
 using helpmeal.Models;
@@ -12,10 +16,18 @@ using helpmeal.Services.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace helpmeal.Services.MealService
+=======
+using helpmeal.Models;
+using helpmeal.Services.MealService;
+using Microsoft.EntityFrameworkCore;
+
+namespace helpmeal.Services.MenuService
+>>>>>>> cdf824a95907fba4a85e73bad1fe6ea2f068aebc
 {
     public class MealService : IMealService
     {
         private readonly ApplicationDbContext applicationDbContext;
+<<<<<<< HEAD
         private readonly IRecipeService recipeService;
         private readonly IUserService userService;
         private readonly IMapper mapper;
@@ -81,3 +93,18 @@ namespace helpmeal.Services.MealService
         }
     }
 }
+=======
+
+        public MealService(ApplicationDbContext applicationDbContext)
+        {
+            this.applicationDbContext = applicationDbContext;
+        }
+        
+        public async Task<List<Meal>> FindMealsByUserAsync(ClaimsPrincipal user)
+        {
+            var mealList = await applicationDbContext.Meals.Include(m => m.Recipe).Where(m => m.User.Email.Equals(user.Identity.Name)).OrderBy(m => m.CycleDay).ToListAsync();
+            return mealList;
+        }
+    }
+}
+>>>>>>> cdf824a95907fba4a85e73bad1fe6ea2f068aebc

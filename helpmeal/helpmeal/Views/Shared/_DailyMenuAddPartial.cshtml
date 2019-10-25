@@ -1,8 +1,9 @@
 ﻿@model DailyMealViewModel
 
+<h2>Add new meal</h2>
 <form asp-controller="Meal" asp-action="Edit" method="post">
     <div class="form-group">
-        <select asp-for="NewMeal.Recipe.RecipeId">
+        <select asp-for="NewMeal.Recipe.RecipeId" class="form-control">
             <option selected>Choose a recipe</option>
             @foreach (var recipe in Model.Recipes)
             {
