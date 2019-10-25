@@ -1,1 +1,29 @@
-﻿@using ShoppingListViewModel
+﻿@model DailyMealViewModel
+<h1>Shopping list for next day</h1>
+
+@if (Model.Meals.Count != 0)
+{
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Quantity</th>
+
+                <th scope="col">Recipe</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meal in Model.Meals)
+            {
+                <tr>
+                    <td>
+                        @meal.Amount x
+                    </td>
+                    <td>
+                        @meal.Recipe
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
