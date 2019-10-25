@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace helpmeal.Controllers
 {
-    public class MenuController : Controller
+    public class MealController : Controller
     {
         [HttpGet("/Edit")]
         public IActionResult Index()
