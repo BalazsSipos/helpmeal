@@ -11,8 +11,8 @@ namespace helpmeal
     {
         public static void SeedUnits(ApplicationDbContext applicationDbContext)
         {
-            //var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
-            //if (temporalUnit.Equals(null))
+            var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
+            if (temporalUnit.Equals(null))
             {
                 Unit unit = new Unit
                 {
