@@ -14,7 +14,7 @@ namespace helpmeal
             var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
             if (temporalUnit.Equals(null))
             {
-                    Unit unit = new Unit
+                Unit unit = new Unit
                 {
                     Name = "kg"
                 };
@@ -75,7 +75,37 @@ namespace helpmeal
                 };
                 applicationDbContext.Recipes.Add(recipe);
                 applicationDbContext.SaveChanges();
-                }
+
+                RecipeIngredient recipeIngredient = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient1,
+                    Amount = 250
+                };
+                RecipeIngredient recipeIngredient2 = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient2,
+                    Amount = 25
+                };
+                RecipeIngredient recipeIngredient3 = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient3,
+                    Amount = 2
+                };
+                RecipeIngredient recipeIngredient4 = new RecipeIngredient
+                {
+                    Recipe = recipe,
+                    Ingredient = ingredient4,
+                    Amount = 500
+                };
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient);
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient2);
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient3);
+                applicationDbContext.RecipeIngredient.Add(recipeIngredient4);
+                applicationDbContext.SaveChanges();
+            }
         }
     }
 }
