@@ -1,7 +1,7 @@
-﻿{
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:50487",
       "sslPort": 44369
@@ -12,16 +12,18 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "BLOB_CONNECTIONSTRING": "DefaultEndpointsProtocol=https;AccountName=helpmealblobcontainer;AccountKey=qOPYVs0Zzy6vn9ZLTsYbdfii2jhcGYk1nVp2Bh1U/4NtG10EYvuE6cXPAKgQQnq8GCyPB59InihV0H9Wcb9bLg==;EndpointSuffix=core.windows.net",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "BLOBCONTAINER_NAME": "devbabics"
       }
     },
     "helpmeal": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }
