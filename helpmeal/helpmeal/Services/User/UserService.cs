@@ -139,5 +139,11 @@ namespace helpmeal.Services.User
             };
             return loginRequest;
         }
+
+        public async Task<byte> GetNumberOfWeeksInCycle(string user.Identity.Email)
+        {
+            var numberOfWeeksInCycle
+            return
+        }
     }
 }
