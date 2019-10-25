@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FoodService.Services.BlobService;
 using helpmeal.Models.Identity;
+using helpmeal.Services.MealService;
 using helpmeal.Services.Profiles;
 using helpmeal.Services.User;
 using Microsoft.AspNetCore.Builder;
@@ -49,6 +50,7 @@ namespace helpmeal
                 });
             }
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IMealService, MealService>();
             services.SetUpAutoMapper();
             services.AddMvc();
             services.AddAuthentication()
