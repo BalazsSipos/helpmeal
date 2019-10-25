@@ -1,0 +1,14 @@
+﻿@model EditUserSettingsViewModel
+
+ViewData["Title"] = "User settings";
+<h2>"User settings"</h2>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <td>Number of weeks in cycle</td>
+            <td>@EditUserSettingsRequest.NumberOfWeeksInCycle</td>
+        </tr>
+    </thead>
+</table>
+<button type="button" class="btn btn-info" onclick="history.back()">Back</button>

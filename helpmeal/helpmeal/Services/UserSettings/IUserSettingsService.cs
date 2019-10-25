@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace helpmeal.Services.UserSettings
 {
-    public interface IUserSettings
+    public interface IUserSettingsService
     {
         Task<byte> GetNumberOfWeeksInCycleAsync(string email);
         Task<List<byte>> GetDaysOfShoppingAsync(string email);
-        Task<UserSettings> SetUserSettingsAsync(string email, EditUserSettingsRequest userSettingsReq);
+        Task<UserSettingsService> SetUserSettingsAsync(string email, EditUserSettingsRequest userSettingsReq);
     }
 }

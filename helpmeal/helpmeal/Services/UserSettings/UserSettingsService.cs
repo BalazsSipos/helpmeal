@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace helpmeal.Services.UserSettings
 {
-    public class UserSettings : IUserSettings
+    public class UserSettingsService : IUserSettingsService
     {
         private readonly ApplicationDbContext applicationDbContext;
-        private readonly IUserSettings userService;
+        private readonly IUserSettingsService userService;
         private readonly UserManager<AppUser> userMgr;
         private readonly IMapper mapper;
 
@@ -34,10 +34,10 @@ namespace helpmeal.Services.UserSettings
             return daysOfShopping;
         }
 
-        public async Task<UserSettings> SetUserSettingsAsync(string email, EditUserSettingsRequest userSettingsReq)
+        public async Task<UserSettingsService> SetUserSettingsAsync(string email, EditUserSettingsRequest userSettingsReq)
         {
             var user = await userMgr.FindByEmailAsync(email);
-            var userSettings = mapper.Map<EditUserSettingsRequest, UserSettings>(userSettingsReq);
+            var userSettings = mapper.Map<EditUserSettingsRequest, UserSettingsService>(userSettingsReq);
             await applicationDbContext.AddAsync(userSettingsReq);
             return userSettings;
         }
