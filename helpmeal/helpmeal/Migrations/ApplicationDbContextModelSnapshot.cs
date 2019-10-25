@@ -42,8 +42,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "224443b0-3a9c-4d06-823c-e7126ca89f6b",
-                            ConcurrencyStamp = "2d277615-3305-4fe5-aa2a-d93a6b975ed1",
+                            Id = "4dc54848-89ed-411c-9d41-8d70bda8ab0e",
+                            ConcurrencyStamp = "4a0b7ca0-fe2f-4d85-84a8-55d0c564bf82",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -227,6 +227,8 @@ namespace helpmeal.Migrations
                 {
                     b.Property<long>("RecipeId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CookingMethod");
 
                     b.Property<string>("ImageUri");
 

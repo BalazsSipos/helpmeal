@@ -54,7 +54,8 @@ namespace helpmeal.Migrations
                     RecipeId = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    ImageUri = table.Column<string>(nullable: true)
+                    ImageUri = table.Column<string>(nullable: true),
+                    CookingMethod = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -230,7 +231,7 @@ namespace helpmeal.Migrations
                     CycleDay = table.Column<byte>(nullable: false),
                     RecipeId = table.Column<long>(nullable: true),
                     Amount = table.Column<int>(nullable: false),
-                    SpecialDate = table.Column<DateTime>(nullable: false)
+                    SpecialDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -299,7 +300,7 @@ namespace helpmeal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "691276d6-adeb-4d3f-bffb-cc2e63b4a9bd", "342f22e5-188b-4221-a415-3b4e17ca2ce9", "User", "USER" });
+                values: new object[] { "4dc54848-89ed-411c-9d41-8d70bda8ab0e", "4a0b7ca0-fe2f-4d85-84a8-55d0c564bf82", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
