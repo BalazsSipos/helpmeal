@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace helpmeal.Services.UserSettings
@@ -34,9 +35,13 @@ namespace helpmeal.Services.UserSettings
             return daysOfShopping;
         }
 
-        public async Task<UserSettingsService> SetUserSettingsAsync(string email, EditUserSettingsRequest userSettingsReq)
+        public async Task<UserSettingsService> SetUserSettingsAsync(string email, List<byte> DaysOfShopping, byte NumberOfWeeksInCycle)
         {
             var user = await userMgr.FindByEmailAsync(email);
+            EditUserSettingsRequest userSettingsReq = new EditUserSettingsRequest();
+            userSettingsReq.DaysOfShopping = DaysOfShopping;
+            userSettingsReq.NumberOfWeeksInCycle = NumberOfWeeksInCycle;
+
             var userSettings = mapper.Map<EditUserSettingsRequest, UserSettingsService>(userSettingsReq);
             await applicationDbContext.AddAsync(userSettingsReq);
             return userSettings;

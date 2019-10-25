@@ -26,16 +26,19 @@ namespace helpmeal.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> UserSettings(long id, object UserSettingsService)
+        public async Task<IActionResult> UserSettings(string email, EditUserSettingsViewModel editUserSettingsViewModel)
         {
-            var ShoppingDaysOfWeek = await UserSettingsService.;
-            return View();
+            return View(editUserSettingsViewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserSettingsViewModel editUserSettingsViewModel, long id)
+        public async Task<IActionResult> Edit(EditUserSettingsViewModel editUserSettingsViewModel, string email)
         {
+            var daysOfShopping = await userSettingsService.GetDaysOfShoppingAsync(email);
+            var numberOfWeeksInCycle = await userSettingsService.GetNumberOfWeeksInCycleAsync(email);
+
+            //await UserSettingsService.SetUserSettingsAsync(User.Email, daysOfShopping, numberOfWeeksInCycle);
 
             return View(editUserSettingsViewModel);
         }
