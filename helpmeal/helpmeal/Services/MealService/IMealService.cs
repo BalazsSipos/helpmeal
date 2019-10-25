@@ -1,4 +1,5 @@
 ﻿using helpmeal.Models;
+using helpmeal.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace helpmeal.Services.MealService
 {
     public interface IMealService
     {
-        Task<List<Meal>> GetMealListByCycleDayAndUserDayAsync(Meal meal, ClaimsPrincipal user);
+        Task<List<Meal>> GetMealListByCycleDayAndUserDayAsync(byte cycleDay, ClaimsPrincipal user);
+        Task<DailyMealViewModel> BuildDailyMealViewModel(byte cycleDay, ClaimsPrincipal user);
     }
 }
