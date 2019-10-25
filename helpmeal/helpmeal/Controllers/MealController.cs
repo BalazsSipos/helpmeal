@@ -17,7 +17,7 @@ namespace helpmeal.Controllers
         }
 
         [HttpPost("/Edit")]
-        public IActionResult Edit()
+        public IActionResult DayEdit()
         {
             return View();
         }

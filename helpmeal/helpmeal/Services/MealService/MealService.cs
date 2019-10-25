@@ -25,7 +25,7 @@ namespace helpmeal.Services.MealService
             this.blobStorageService = blobStorageService;
         }
 
-        public async Task<List<Meal>> GetMealListByCycleAndUserDayAsync(Meal meal, ClaimsPrincipal user)
+        public async Task<List<Meal>> GetMealListByCycleDayAndUserDayAsync(Meal meal, ClaimsPrincipal user)
         {
             var mealList = await applicationDbContext.Meals.Where(cd => cd.CycleDay.Equals(meal.CycleDay)).Where(r => r.User.UserName == user.Identity.Name).ToListAsync();
             return mealList;
