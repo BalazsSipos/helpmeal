@@ -15,7 +15,6 @@ namespace helpmeal.Controllers
     [Authorize]
     public class UserSettingsController : Controller
     {
-        private readonly byte numberOfWeeksInCycle;
         private readonly IUserSettingsService userSettingsService;
 
         public UserSettingsController(IUserSettingsService userSettingsService)
@@ -28,7 +27,7 @@ namespace helpmeal.Controllers
         public async Task<IActionResult> Index()
         {
             EditUserSettingsViewModel editUserSettingsViewModel = await userSettingsService.BuildUserSettingsViewModel(User);
-            //editUserSettingsViewModel.EditUserSettingsRequest.DaysOfShopping = userSettingsService.GetDaysOfShoppingAsync(user);
+
             return View(editUserSettingsViewModel);
         }
 
@@ -38,7 +37,7 @@ namespace helpmeal.Controllers
         {
             if (ModelState.IsValid)
             {
-                await userSettingsService.EditSettings(User, editUserSettingsRequest);
+                await userSettingsService.EditSettingsAsync(User, editUserSettingsRequest);
             }
             return View(await userSettingsService.BuildUserSettingsViewModel(User));
         }
