@@ -9,7 +9,7 @@ using helpmeal;
 namespace helpmeal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191025233439_initial")]
+    [Migration("20191025235142_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,8 +44,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "663172e4-dead-4950-988d-29f6290e82d1",
-                            ConcurrencyStamp = "4ddda7ca-9759-41f4-ae58-f769b645f31c",
+                            Id = "b1eaaec1-7763-4536-9b31-8b34ad18f6a1",
+                            ConcurrencyStamp = "591ef1d6-dcfd-4845-b5c9-439ea7c752bf",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -371,12 +371,12 @@ namespace helpmeal.Migrations
             modelBuilder.Entity("helpmeal.Models.RecipeIngredient", b =>
                 {
                     b.HasOne("helpmeal.Models.Ingredient", "Ingredient")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("helpmeal.Models.Recipe", "Recipe")
-                        .WithMany()
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

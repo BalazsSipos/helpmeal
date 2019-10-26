@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using helpmeal.Services.MealService;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +9,23 @@ namespace helpmeal.Controllers
 {
     public class HomeController : Controller
     {
-        [HttpGet("/")]
-        public IActionResult Index()
+        private readonly IMealService mealService;
+
+        public HomeController(IMealService mealService)
         {
-            return View();
+            this.mealService = mealService;
+        }
+
+        [HttpGet("/")]
+        public async Task<IActionResult> Index()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction(nameof(AccountController.Login), "Account");
+            }
+            byte today = 1;
+            var nextDaysMealViewModel = await mealService.BuildNextDaysMealViewModel(today, User);
+            return View(nextDaysMealViewModel);
         }
     }
 }

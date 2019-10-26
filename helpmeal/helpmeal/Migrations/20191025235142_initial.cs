@@ -300,7 +300,7 @@ namespace helpmeal.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "663172e4-dead-4950-988d-29f6290e82d1", "4ddda7ca-9759-41f4-ae58-f769b645f31c", "User", "USER" });
+                values: new object[] { "b1eaaec1-7763-4536-9b31-8b34ad18f6a1", "591ef1d6-dcfd-4845-b5c9-439ea7c752bf", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
