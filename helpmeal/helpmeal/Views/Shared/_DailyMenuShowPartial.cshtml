@@ -1,24 +1,35 @@
 ﻿@model DailyMealViewModel
 
-    <form asp-controller="Meal" asp-action="@ViewData["Action"]" method="post">
-        <table><tr><th>Meal</th><th>Amount</th></tr>
-            @foreach (var meal in Model.Meals)
-            {
+    <h2>Edit meals of day @Model.cycleDay</h2>
+    <table><tr><th>Meal</th><th>Amount</th><th></th><th></th></tr>
+        @foreach (var meal in Model.Meals)
+        {
                 
-                    <tr>
-                        <td>@meal.Recipe.Name</td>
+                <tr>
+                    <td>@meal.Recipe.Name</td>
+                    
+                    <form asp-controller="Meal" asp-action="EditMeal" method="post" asp-route-id="@meal.MealId">
                         <td>
-                            
                             <input type="text" asp-for="@meal.Amount" class="form-control" />
                             <span asp-validation-for="@meal.Amount" class="text-danger"></span>
                         </td>
-                    </tr>
+                        <td>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </td>
+                    </form>
+                    
+                    <td>
+                        <form asp-controller="Meal" asp-action="Delete" method="post" asp-route-id="@meal.MealId">
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </form>
+                    </td>
+                </tr>
                 
-            }
-        </table>    
+        }
+    </table>    
             
-        <button type="submit" class="btn btn-primary">Edit</button>
-    </form>
+    
+    
     <form>
         <button type="button" class="btn btn-info" onclick="history.back()">Cancel</button>
     </form>
