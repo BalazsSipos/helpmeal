@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using helpmeal.Models;
 using helpmeal.Models.Identity;
 using helpmeal.Models.RequestModels.UserSettingsRequest;
 using helpmeal.Models.ViewModels;
@@ -34,6 +35,8 @@ namespace helpmeal.Services.UserSettings
                 EditUserSettingsRequest = new EditUserSettingsRequest
                 {
                     NumberOfWeeksInCycle = await GetNumberOfWeeksInCycleAsync(user),
+                    
+                    //DaysOfShopping = await GetDaysOfShoppingAsync(user)
                 }
             };
             return editUserSettingsViewModel;
@@ -73,11 +76,11 @@ namespace helpmeal.Services.UserSettings
             return daysOfShopping;
         }
 
-            public async Task<UserSettingsService> SetUserSettingsAsync(string email, List<byte> DaysOfShopping, byte NumberOfWeeksInCycle)
+            public async Task<UserSettingsService> SetUserSettingsAsync(string email, List<bool> DaysOfShopping, byte NumberOfWeeksInCycle)
         {
             var user = await userMgr.FindByEmailAsync(email);
             EditUserSettingsRequest userSettingsReq = new EditUserSettingsRequest();
-            //userSettingsReq.DaysOfShopping = DaysOfShopping;
+            userSettingsReq.DaysOfShopping = DaysOfShopping;
             userSettingsReq.NumberOfWeeksInCycle = NumberOfWeeksInCycle;
 
             var userSettings = mapper.Map<EditUserSettingsRequest, UserSettingsService>(userSettingsReq);
@@ -85,11 +88,20 @@ namespace helpmeal.Services.UserSettings
             return userSettings;
         }
 
-        public async Task EditSettings(ClaimsPrincipal user, EditUserSettingsRequest editUserSettingsRequest)
+        public async Task EditSettingsAsync(ClaimsPrincipal user, EditUserSettingsRequest editUserSettingsRequest)
         {
             var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
             appUser.NumberOfWeeksInCycle = editUserSettingsRequest.NumberOfWeeksInCycle;
             await applicationDbContext.SaveChangesAsync();
+            for (int i = 0; i < editUserSettingsRequest.DaysOfShopping.Count(); i++)
+            {
+                if (editUserSettingsRequest.DaysOfShopping[i] == true)
+                {
+                    ShoppingDaysOfWeek shoppingDaysOfWeek = new ShoppingDaysOfWeek() { DaysOfShopping = (byte)(i + 1), User = appUser };
+                    applicationDbContext.ShoppingDaysOfWeeks.Add(shoppingDaysOfWeek);
+                    await applicationDbContext.SaveChangesAsync();
+                }
+            }
         }
     }
 }

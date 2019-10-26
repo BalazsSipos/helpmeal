@@ -11,16 +11,13 @@
         <input type="text" asp-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="form-control" />
         <span asp-validation-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="text-danger"></span>
     </div>
-    @using (Html.BeginForm("UserSettings", "Index", FormMethod.Post))
-    {
-        <span>Monday: </span> @Html.CheckBox("Monday", true)
-        <span> | Tuesday: </span> @Html.CheckBox("Tuesday", false)
-        <span> | Wednesday: </span> @Html.CheckBox("Wednesday", false)
-        <span> | Thursday: </span> @Html.CheckBox("Thursday", false)
-        <span> | Friday: </span> @Html.CheckBox("Friday", false)
-        <span> | Saturday: </span> @Html.CheckBox("Saturday", false)
-        <span> | Sunday: </span> @Html.CheckBox("Sunday", false)
-    }
+    <span>Monday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[0]", true)
+    <span> | Tuesday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[1]", false)
+    <span> | Wednesday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[2]", false)
+    <span> | Thursday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[3]", false)
+    <span> | Friday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[4]", false)
+    <span> | Saturday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[5]", false)
+    <span> | Sunday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[6]", false)
     <div>
         <button type="submit" class="btn btn-primary">Save</button>
     </div>

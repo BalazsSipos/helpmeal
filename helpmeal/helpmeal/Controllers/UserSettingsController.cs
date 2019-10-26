@@ -26,6 +26,7 @@ namespace helpmeal.Controllers
         public async Task<IActionResult> Index()
         {
             EditUserSettingsViewModel editUserSettingsViewModel = await userSettingsService.BuildUserSettingsViewModel(User);
+
             return View(editUserSettingsViewModel);
         }
 
@@ -35,7 +36,7 @@ namespace helpmeal.Controllers
         {
             if (ModelState.IsValid)
             {
-                await userSettingsService.EditSettings(User, editUserSettingsRequest);
+                await userSettingsService.EditSettingsAsync(User, editUserSettingsRequest);
             }
             return View(await userSettingsService.BuildUserSettingsViewModel(User));
         }
