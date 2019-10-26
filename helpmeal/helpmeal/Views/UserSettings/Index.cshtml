@@ -11,7 +11,16 @@
         <input type="text" asp-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="form-control" />
         <span asp-validation-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="text-danger"></span>
     </div>
+
+    <span>Monday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[0]", @Model.EditUserSettingsRequest.DaysOfShopping[0])
+    <span> | Tuesday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[1]", @Model.EditUserSettingsRequest.DaysOfShopping[1])
+    <span> | Wednesday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[2]", @Model.EditUserSettingsRequest.DaysOfShopping[2])
+    <span> | Thursday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[3]", @Model.EditUserSettingsRequest.DaysOfShopping[3])
+    <span> | Friday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[4]", @Model.EditUserSettingsRequest.DaysOfShopping[4])
+    <span> | Saturday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[5]", @Model.EditUserSettingsRequest.DaysOfShopping[5])
+    <span> | Sunday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[6]", @Model.EditUserSettingsRequest.DaysOfShopping[6])
     <br />
+
     <div>
         <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-info, inline" onclick="history.back()">Back</button>

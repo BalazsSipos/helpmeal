@@ -9,7 +9,6 @@ namespace helpmeal.Models.RequestModels.UserSettingsRequest
     public class EditUserSettingsRequest
     {
         public byte NumberOfWeeksInCycle { get; set; }
-
-        public List<byte> DaysOfShopping { get; set; }
+        public List<bool> DaysOfShopping { get; set; }
     }
 }
