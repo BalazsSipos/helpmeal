@@ -10,43 +10,43 @@ using System.Threading.Tasks;
 
 namespace helpmeal.Controllers
 {
-    public class RecipieController : Controller
+    public class RecipeController : Controller
     {
         private readonly IUnitService unitService;
         private readonly IIngredientService ingredientService;
         private readonly IBlobStorageService blobStorageService;
 
-        public RecipieController(IUnitService unitService, IIngredientService ingredientService, IBlobStorageService blobStorageService)
+        public RecipeController(IUnitService unitService, IIngredientService ingredientService, IBlobStorageService blobStorageService)
         {
             this.blobStorageService = blobStorageService;
             this.unitService = unitService;
             this.ingredientService = ingredientService;
         }
 
-        [HttpGet("/addingredient")]
+        [HttpGet]
         public IActionResult Index()
         {
             List<Unit> unitlist = new List<Unit>(unitService.FindAll());
             return View(unitlist);
         }
-        [HttpPost("/addingredient")]
-        public IActionResult addIngredient(string Ingredient_name, string Ingredient_unit)
+        [HttpPost]
+        public IActionResult AddIngredient(string Ingredient_name, string Ingredient_unit)
         {
             Unit unit = unitService.FindUnitByName(Ingredient_unit);
             ingredientService.Addingredient(Ingredient_name, unit);
-            return RedirectToAction(nameof(RecipieController.AddRecipie), "Recipie");
+            return RedirectToAction(nameof(RecipeController.AddRecipe), "Recipe");
         }
-        [HttpGet("/addrecipie")]
-        public IActionResult AddRecipie()
+        [HttpGet]
+        public IActionResult AddRecipe()
         {
             List<Ingredient> ingredients = new List<Ingredient>(ingredientService.FindAll());
             return View(ingredients);
         }
-        [HttpPost("/addrecipie")]
-        public IActionResult addRecipie(string recipie_name, string Ingredient_unit1, int amount1, string CookingMethod)
+        [HttpPost]
+        public IActionResult AddRecipe(string recipe_name, string Ingredient_unit1, int amount1, string CookingMethod)
         {
 
-            return RedirectToAction(nameof(RecipieController.AddRecipie), "Recipie");
+            return RedirectToAction(nameof(RecipeController.AddRecipe), "Recipe");
         }
     }
 }
