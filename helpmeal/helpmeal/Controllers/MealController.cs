@@ -62,7 +62,6 @@ namespace helpmeal.Controllers
                 return RedirectToAction(nameof(MealController.Edit), "Meal", new { id = updatedMeal.CycleDay });
             }
             var existingMeal = await mealService.GetMealById(id);
-            //var dailyMealViewModel = await mealService.BuildDailyMealViewModel((byte) id, User, null);
             return RedirectToAction(nameof(MealController.Edit), "Meal", new { id = existingMeal.CycleDay });
         }
 
