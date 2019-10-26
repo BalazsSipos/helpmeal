@@ -42,7 +42,7 @@ namespace FoodService.Services.BlobService
             return blobContainer;
         }
 
-        public async Task<CloudBlockBlob> MakeBlobFolderAndSaveImageAsync(long id, IFormFile image)
+        public async Task<CloudBlockBlob> MakeBlobFolderAndSaveImageAsync(string id, IFormFile image)
         {
             CloudBlobContainer blobContainer = GetCloudBlobContainer();
             CloudBlockBlob blob = blobContainer.GetBlockBlobReference(id + "/" + image.Name + ".jpg");

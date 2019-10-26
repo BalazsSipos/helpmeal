@@ -42,8 +42,8 @@ namespace helpmeal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "effa923e-5140-4935-b3b0-896c586dab25",
-                            ConcurrencyStamp = "f8cc057a-1be3-4b1a-ad3b-0c2de3900830",
+                            Id = "b1eaaec1-7763-4536-9b31-8b34ad18f6a1",
+                            ConcurrencyStamp = "591ef1d6-dcfd-4845-b5c9-439ea7c752bf",
                             Name = "User",
                             NormalizedName = "USER"
                         });
