@@ -11,7 +11,8 @@
         <input type="text" asp-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="form-control" />
         <span asp-validation-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="text-danger"></span>
     </div>
-
+    <br />
+    <p>Shopping day</p>
     <span>Monday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[0]", @Model.EditUserSettingsRequest.DaysOfShopping[0])
     <span> | Tuesday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[1]", @Model.EditUserSettingsRequest.DaysOfShopping[1])
     <span> | Wednesday: </span> @Html.CheckBox("EditUserSettingsRequest.DaysOfShopping[2]", @Model.EditUserSettingsRequest.DaysOfShopping[2])
