@@ -50,26 +50,8 @@ namespace helpmeal.Services.UserSettings
             return appUser.NumberOfWeeksInCycle;
         }
 
-        public async Task<List<byte>> GetDaysOfShoppingAsync(ClaimsPrincipal user)
-        {
-            var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
-            List<byte> daysOfShopping = new List<byte> { };
-            if (appUser.ShoppingDaysOfWeek == null)
-            {
-                daysOfShopping.Add(1);
-                return daysOfShopping;
-            }
-            var days = appUser.ShoppingDaysOfWeek.ToList();
-            foreach (var day in days)
-            {
-                daysOfShopping.Add(day.DaysOfShopping);
-            }
-            return daysOfShopping;
-        }
-
         public async Task<List<bool>> GetDaysOfShoppingAsync(AppUser user)
         {
-            //var days = user.ShoppingDaysOfWeek;
             var days = await applicationDbContext.ShoppingDaysOfWeeks.Where(s => s.User == user).ToListAsync();
             List<bool> daysOfShopping = new List<bool>();
             for (byte i = 0; i < 7; i++)
@@ -103,8 +85,6 @@ namespace helpmeal.Services.UserSettings
             var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
             appUser.NumberOfWeeksInCycle = editUserSettingsRequest.NumberOfWeeksInCycle;
             var daysOfShopping = await GetDaysOfShoppingAsync(appUser);
-            //await applicationDbContext.SaveChangesAsync();
-            //for (byte i = 0; i < editUserSettingsRequest.DaysOfShopping.Count(); i++)
             for (byte i = 1; i <= 7; i++)
             {
                 if (editUserSettingsRequest.DaysOfShopping[i-1])
