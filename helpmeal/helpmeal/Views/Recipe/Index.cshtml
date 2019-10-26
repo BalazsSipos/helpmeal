@@ -9,16 +9,17 @@
 @inject IUnitService unitservice
 
 
-  <form action="/addingredient" method="post">
+<form asp-controller="Recipe"
+      asp-action="AddIngredient" method="post">
     Ingredientname:<br>
     <input type="text" name="Ingredient_name"><br>
     Ingredient Unit:<br>
     <select name="Ingredient_unit" class="form-control">
-      @foreach (var unit in unitservice.FindAll())
-      {
-        <option text="@unit.Name">@unit.Name</option>
-      }
+        @foreach (var unit in unitservice.FindAll())
+        {
+            <option text="@unit.Name">@unit.Name</option>
+        }
     </select>
     <input type="submit" value="Submit">
-  </form>
+</form>
 

@@ -35,6 +35,7 @@
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav">
                         <li><a class="menu-color" asp-area="" asp-controller="Meal" asp-action="Index"><i class="fas fa-cog"></i> Weakly Setup</a></li>
+                        <li><a class="menu-color" asp-controller="Recipe" asp-action="AddRecipe"><i class="fas fa-salad"></i> Add Recipe</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         @if (User.Identity.IsAuthenticated)

@@ -1,0 +1,38 @@
+﻿@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using helpmeal.Models;
+@using helpmeal.Services.IngredientService
+
+@inject IIngredientService ingredientservice
+<h2>Add Recipe</h2>
+
+<form asp-controller="Recipe" asp-action="Index" method="get" asp-route-id="">
+    <button type="submit" class="btn btn-primary">Add Ingredient</button>
+</form>
+<br />
+<form asp-controller="Recipe"
+      asp-action="addRecipe" method="post">
+    Recipe name:<br>
+    <input type="text" name="recipe_name"><br>
+
+    Add ingredient and amount to your recipe:<br>
+    <select name="Ingredient_unit1" class="form-control">
+        @foreach (var unit in ingredientservice.FindAll())
+        {
+            <option text="@unit.Name @unit.Unit">@unit.Name</option>
+        }
+    </select>
+    Amount:
+    <br>
+    <input type="text" name="amount1">
+    <br>
+
+
+    Cooking Method:<br>
+    <textarea name="CookingMethod"></textarea>
+    <br />
+    <input type="submit" class="btn btn-success" value="Save your recipe">
+</form>
