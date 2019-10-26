@@ -13,7 +13,7 @@ namespace helpmeal.Services.UserSettings
     {
         Task<EditUserSettingsViewModel> BuildUserSettingsViewModel(ClaimsPrincipal user);
         Task<byte> GetNumberOfWeeksInCycleAsync(ClaimsPrincipal user);
-        List<byte> GetDaysOfShoppingAsync(AppUser user);
+        Task<List<bool>> GetDaysOfShoppingAsync(AppUser user);
         Task<UserSettingsService> SetUserSettingsAsync(string email, List<bool> DaysOfShopping, byte NumberOfWeeksInCycle);
         Task EditSettingsAsync(ClaimsPrincipal User, EditUserSettingsRequest editUserSettingsRequest);
     }

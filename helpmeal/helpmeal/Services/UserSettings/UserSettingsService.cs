@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace helpmeal.Services.UserSettings
 {
@@ -30,13 +31,14 @@ namespace helpmeal.Services.UserSettings
 
         public async Task<EditUserSettingsViewModel> BuildUserSettingsViewModel(ClaimsPrincipal user)
         {
+            var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
+            var bytes = await GetDaysOfShoppingAsync(appUser);
             var editUserSettingsViewModel = new EditUserSettingsViewModel
             {
                 EditUserSettingsRequest = new EditUserSettingsRequest
                 {
                     NumberOfWeeksInCycle = await GetNumberOfWeeksInCycleAsync(user),
-                    
-                    //DaysOfShopping = await GetDaysOfShoppingAsync(user)
+                    DaysOfShopping = bytes
                 }
             };
             return editUserSettingsViewModel;
@@ -65,13 +67,21 @@ namespace helpmeal.Services.UserSettings
             return daysOfShopping;
         }
 
-        public List<byte> GetDaysOfShoppingAsync(AppUser user)
+        public async Task<List<bool>> GetDaysOfShoppingAsync(AppUser user)
         {
-            var days = user.ShoppingDaysOfWeek;
-            List<byte> daysOfShopping = new List<byte>();
-            foreach (var day in days)
+            //var days = user.ShoppingDaysOfWeek;
+            var days = await applicationDbContext.ShoppingDaysOfWeeks.Where(s => s.User == user).ToListAsync();
+            List<bool> daysOfShopping = new List<bool>();
+            for (byte i = 0; i < 7; i++)
             {
-                daysOfShopping.Add(day.DaysOfShopping);
+                daysOfShopping.Add(false);
+            }
+            if (days.Count != 0)
+            {
+                foreach (var day in days)
+                {
+                    daysOfShopping[day.DaysOfShopping - 1] = true;
+                }
             }
             return daysOfShopping;
         }
@@ -92,16 +102,40 @@ namespace helpmeal.Services.UserSettings
         {
             var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
             appUser.NumberOfWeeksInCycle = editUserSettingsRequest.NumberOfWeeksInCycle;
-            await applicationDbContext.SaveChangesAsync();
-            for (int i = 0; i < editUserSettingsRequest.DaysOfShopping.Count(); i++)
+            var daysOfShopping = await GetDaysOfShoppingAsync(appUser);
+            //await applicationDbContext.SaveChangesAsync();
+            //for (byte i = 0; i < editUserSettingsRequest.DaysOfShopping.Count(); i++)
+            for (byte i = 1; i <= 7; i++)
             {
-                if (editUserSettingsRequest.DaysOfShopping[i] == true)
+                if (editUserSettingsRequest.DaysOfShopping[i-1])
                 {
-                    ShoppingDaysOfWeek shoppingDaysOfWeek = new ShoppingDaysOfWeek() { DaysOfShopping = (byte)(i + 1), User = appUser };
-                    applicationDbContext.ShoppingDaysOfWeeks.Add(shoppingDaysOfWeek);
-                    await applicationDbContext.SaveChangesAsync();
+                    var day = await applicationDbContext.ShoppingDaysOfWeeks.FirstOrDefaultAsync(s => s.DaysOfShopping == i && s.User == appUser);
+                    if(day == null)
+                    {
+                        ShoppingDaysOfWeek shoppingDaysOfWeek = new ShoppingDaysOfWeek()
+                        {
+                            DaysOfShopping = (i),
+                            User = appUser
+                        };
+                        applicationDbContext.ShoppingDaysOfWeeks.Add(shoppingDaysOfWeek);
+                    }
+                } else
+                {
+                    if(daysOfShopping.Count != 0)
+                    {
+                        if(daysOfShopping[i-1])
+                        {
+                            var day = await applicationDbContext.ShoppingDaysOfWeeks.FirstOrDefaultAsync(s => s.DaysOfShopping == i && s.User == appUser);
+                            if(day != null)
+                            {
+                                applicationDbContext.ShoppingDaysOfWeeks.Remove(day);
+                                await applicationDbContext.SaveChangesAsync();
+                            }
+                        }
+                    }
                 }
             }
+            await applicationDbContext.SaveChangesAsync();
         }
     }
 }
