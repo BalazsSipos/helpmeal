@@ -13,35 +13,34 @@ namespace helpmeal.Controllers
 {
     public class UserSettingsController : Controller
     {
-        private new readonly AppUser User;
         private readonly byte numberOfWeeksInCycle;
         private readonly IUserSettingsService userSettingsService;
         
-        public UserSettingsController(IUserSettingsService userSettingsService, long UserSettingId, AppUser User, byte numberOfWeeksInCycle)
+        public UserSettingsController(IUserSettingsService userSettingsService)
         {
-            this.User = User;
-            this.numberOfWeeksInCycle = numberOfWeeksInCycle;
-            this.userSettingsService = userSettingsService;
+           this.userSettingsService = userSettingsService;
         }
 
         [Authorize]
         [HttpGet("/UserSettings")]
-        public async Task<IActionResult> UserSettings(string email, EditUserSettingsViewModel editUserSettingsViewModel)
+        public async Task<IActionResult> UserSettings()
         {
+            EditUserSettingsViewModel editUserSettingsViewModel = await userSettingsService.BuildUserSettingsViewModel(User);
+            //editUserSettingsViewModel.EditUserSettingsRequest.DaysOfShopping = userSettingsService.GetDaysOfShoppingAsync(user);
             return View(editUserSettingsViewModel);
         }
 
-        [Authorize]
+        /*[Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserSettingsViewModel editUserSettingsViewModel, string email)
+        public async Task<IActionResult> Edit(EditUserSettingsViewModel editUserSettingsViewModel, AppUser user)
         {
-            var daysOfShopping = await userSettingsService.GetDaysOfShoppingAsync(email);
-            var numberOfWeeksInCycle = await userSettingsService.GetNumberOfWeeksInCycleAsync(email);
+            var daysOfShopping = await userSettingsService.GetDaysOfShoppingAsync(user);
+            var numberOfWeeksInCycle = await userSettingsService.GetNumberOfWeeksInCycleAsync(user);
 
             //await UserSettingsService.SetUserSettingsAsync(User.Email, daysOfShopping, numberOfWeeksInCycle);
 
             return View(editUserSettingsViewModel);
-        }
+        }*/
 
     }
 }

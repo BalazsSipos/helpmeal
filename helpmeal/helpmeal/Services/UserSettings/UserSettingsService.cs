@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using helpmeal.Models.Identity;
 using helpmeal.Models.RequestModels.UserSettingsRequest;
+using helpmeal.Models.ViewModel;
+using helpmeal.Services.User;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -13,19 +15,38 @@ namespace helpmeal.Services.UserSettings
     public class UserSettingsService : IUserSettingsService
     {
         private readonly ApplicationDbContext applicationDbContext;
-        private readonly IUserSettingsService userService;
         private readonly UserManager<AppUser> userMgr;
         private readonly IMapper mapper;
+        private readonly IUserService userService;
 
-        public async Task<byte> GetNumberOfWeeksInCycleAsync(string email)
+        public UserSettingsService(ApplicationDbContext applicationDbContext, UserManager<AppUser> userMgr, IMapper mapper, IUserService userService)
         {
-            var user = await userMgr.FindByEmailAsync(email);
-            return user.NumberOfWeeksInCycle;
+            this.applicationDbContext = applicationDbContext;
+            this.userMgr = userMgr;
+            this.mapper = mapper;
+            this.userService = userService;
         }
 
-        public async Task<List<byte>> GetDaysOfShoppingAsync(string email)
+        public async Task<EditUserSettingsViewModel> BuildUserSettingsViewModel(ClaimsPrincipal user)
         {
-            var user = await userMgr.FindByEmailAsync(email);
+            var editUserSettingsViewModel = new EditUserSettingsViewModel
+            {
+                EditUserSettingsRequest = new EditUserSettingsRequest
+                {
+                    NumberOfWeeksInCycle = await GetNumberOfWeeksInCycleAsync(user)
+                }
+            };
+            return editUserSettingsViewModel;
+        }
+
+        public async Task<byte> GetNumberOfWeeksInCycleAsync(ClaimsPrincipal user)
+        {
+            var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
+            return appUser.NumberOfWeeksInCycle;
+        }
+
+        public List<byte> GetDaysOfShoppingAsync(AppUser user)
+        {
             var days = user.ShoppingDaysOfWeek;
             List<byte> daysOfShopping = new List<byte>();
             foreach (var day in days)
