@@ -8,10 +8,12 @@ using helpmeal.Models.ViewModels.MealViewModels;
 using helpmeal.Services.MealService;
 using helpmeal.Services.User;
 using helpmeal.Services.UserSettings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace helpmeal.Controllers
 {
+    [Authorize]
     public class MealController : Controller
     {
         private readonly IMealService mealService;

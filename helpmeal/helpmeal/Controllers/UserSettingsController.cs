@@ -12,14 +12,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace helpmeal.Controllers
 {
+    [Authorize]
     public class UserSettingsController : Controller
     {
         private readonly byte numberOfWeeksInCycle;
         private readonly IUserSettingsService userSettingsService;
-        
+
         public UserSettingsController(IUserSettingsService userSettingsService)
         {
-           this.userSettingsService = userSettingsService;
+            this.userSettingsService = userSettingsService;
         }
 
         [Authorize]
