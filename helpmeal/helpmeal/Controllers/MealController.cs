@@ -37,8 +37,6 @@ namespace helpmeal.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(byte id)
         {
-            //byte cycleDay = 1;
-
             var dailyMealViewModel = await mealService.BuildDailyMealViewModel(id, User, null);
             return View(dailyMealViewModel);
         }
@@ -49,11 +47,31 @@ namespace helpmeal.Controllers
             if (ModelState.IsValid)
             {
                 await mealService.AddMeal(id, User, newMeal);
-                newMeal = null;
+                return RedirectToAction(nameof(MealController.Edit), "Meal");
             }
             var dailyMealViewModel = await mealService.BuildDailyMealViewModel(id, User, newMeal);
             return View(dailyMealViewModel);
-            //return RedirectToAction(nameof(MealController.Edit), "Meal", new { cycleDay = cycleDay });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditMeal(long id, Meal meal)
+        {
+            if (ModelState.IsValid)
+            {
+                var updatedMeal = await mealService.EditMeal(id, meal.Amount);
+                return RedirectToAction(nameof(MealController.Edit), "Meal", new { id = updatedMeal.CycleDay });
+            }
+            var existingMeal = await mealService.GetMealById(id);
+            return RedirectToAction(nameof(MealController.Edit), "Meal", new { id = existingMeal.CycleDay });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(long id)
+        {
+            byte cycleDay = await mealService.DeleteMeal(id);
+
+            var dailyMealViewModel = await mealService.BuildDailyMealViewModel(cycleDay, User, null);
+            return RedirectToAction(nameof(MealController.Edit), "Meal", new { id = cycleDay });
         }
     }
 }

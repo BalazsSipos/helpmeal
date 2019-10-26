@@ -138,5 +138,33 @@ namespace helpmeal.Services.MealService
             };
             return dailyMealViewModel;
         }
+
+        public async Task<byte> DeleteMeal(long mealId)
+        {
+            var meal = await applicationDbContext.Meals.FirstOrDefaultAsync(m => m.MealId == mealId);
+            if(meal != null)
+            {
+                applicationDbContext.Meals.Remove(meal);
+                applicationDbContext.SaveChanges();
+            }
+            return meal.CycleDay;
+        }
+
+        public async Task<Meal> EditMeal(long mealId, int newAmount)
+        {
+            var meal = await GetMealById(mealId);
+            if(meal != null)
+            {
+                meal.Amount = newAmount;
+                applicationDbContext.SaveChanges();
+            }
+            return meal;
+        }
+
+        public async Task<Meal> GetMealById(long mealId)
+        {
+            var meal = await applicationDbContext.Meals.FirstOrDefaultAsync(m => m.MealId == mealId);
+            return meal;
+        }
     }
 }

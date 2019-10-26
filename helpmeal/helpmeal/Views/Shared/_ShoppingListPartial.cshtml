@@ -1,29 +1,28 @@
 ﻿@model NextDaysMealViewModel
-<h1>Shopping list aggregation for next 3 day</h1>
+<h1>Shopping list for next 3 days</h1>
 
 <table class="table">
     <thead class="thead-light">
         <tr>
-            <th scope="col">Quantity</th>
-            <th scope="col">Recipe</th>
+            <th scope="col">Recipes</th>
+            <th scope="col">Ingredients - aggregated</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var meal in Model.TodayMeals)
-        {
-            <tr>
-                <td>
-                    @meal.Amount x @meal.Recipe.Name
-                </td>
-                <td>
-                    @foreach (var ingredients in meal.Recipe.RecipeIngredients)
-                    {
-                        var amountTotal = meal.Amount * ingredients.Amount;
-                        @amountTotal<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Unit.Name<span>&nbsp;&nbsp;</span>@ingredients.Ingredient.Name <br />
-                    }
-                </td>
-            </tr>
-        }
+        <tr>
+            <td>
+                @foreach (var recipes in Model.AggregatedRecipes)
+                {
+                    @recipes.Value<span> x </span>@recipes.Key.Name<br />
+                }
+            </td>
+            <td>
+                @foreach (var ingredients in Model.AggregatedIngredients)
+                {
+                    @ingredients.Value<span>&nbsp;&nbsp;</span>@ingredients.Key.Unit.Name<span>&nbsp;&nbsp;</span>@ingredients.Key.Name <br />
+                }
+            </td>
+        </tr>
     </tbody>
 </table>
 
