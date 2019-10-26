@@ -7,6 +7,7 @@ using helpmeal.Models;
 using helpmeal.Models.ViewModels.MealViewModels;
 using helpmeal.Services.MealService;
 using helpmeal.Services.User;
+using helpmeal.Services.UserSettings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace helpmeal.Controllers
@@ -14,23 +15,22 @@ namespace helpmeal.Controllers
     public class MealController : Controller
     {
         private readonly IMealService mealService;
-        private readonly IUserService userService;
+        private readonly IUserSettingsService userSettingsService;
 
-        public MealController(IMealService mealService, IUserService userService)
+        public MealController(IMealService mealService, IUserSettingsService userSettingsService)
         {
             this.mealService = mealService;
-            this.userService = userService;
+            this.userSettingsService = userSettingsService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var mealList = await mealService.FindMealsByUserAsync(User);
-            var userSetting = await userService.GetUserSettingByUserAsync(User);
             return View(new WeeklySummaryViewModel
             {
                 MealList = mealList,
-                NumberOfDaysInCycle = userSetting.numberOfWeeksInCycle
+                NumberOfDaysInCycle = await userSettingsService.GetNumberOfWeeksInCycleAsync(User)
             });
         }
 

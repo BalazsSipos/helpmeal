@@ -18,6 +18,7 @@ namespace helpmeal.Services.User
         private readonly UserManager<AppUser> userMgr;
         private readonly SignInManager<AppUser> signInMgr;
         private readonly ApplicationDbContext applicationDbContext;
+
         public UserService(UserManager<AppUser> userMgr, SignInManager<AppUser> signInMgr, ApplicationDbContext applicationDbContext)
         {
             this.userMgr = userMgr;
@@ -133,11 +134,6 @@ namespace helpmeal.Services.User
             };
             return loginRequest;
         }
-
-        public async Task<UserSetting> GetUserSettingByUserAsync(ClaimsPrincipal user)
-        {
-            var userSetting = await applicationDbContext.UserSettings.Where(u => u.User.Email == user.Identity.Name).FirstOrDefaultAsync();
-            return userSetting;
-        }
     }
 }
+

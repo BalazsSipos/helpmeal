@@ -10,6 +10,7 @@ using helpmeal.Services.Profiles;
 using helpmeal.Services.UnitService;
 using helpmeal.Services.RecipeService;
 using helpmeal.Services.User;
+using helpmeal.Services.UserSettings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +56,7 @@ namespace helpmeal
                 });
             }
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserSettingsService, UserSettingsService>();
             services.AddTransient<IMealService, MealService>();
             services.AddTransient<IRecipeService, RecipeService>();
 

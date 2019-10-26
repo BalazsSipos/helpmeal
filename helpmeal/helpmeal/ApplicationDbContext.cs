@@ -18,7 +18,6 @@ namespace helpmeal
         public DbSet<RecipeIngredient> RecipeIngredient { get; set; }
         public DbSet<ShoppingDaysOfWeek> ShoppingDaysOfWeeks { get; set; }
         public DbSet<Unit> Units { get; set; }
-        public DbSet<UserSetting> UserSettings { get; set; }
         public DbSet<Meal> Meals { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
