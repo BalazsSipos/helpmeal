@@ -13,7 +13,16 @@ body {
 }
 
 .menu-color {
-    color: black !important;
+    color: aliceblue !important;
+    background: red !important;
+}
+
+    .menu-color:hover {
+        background: orange !important;
+    }
+
+.dropdown-color {
+    background: red !important;
 }
 
 h1, h2, h3 {
@@ -104,7 +113,7 @@ span.google-buttonText {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 3px 0px;
 }
 
-.col-md-6 {
+.col-md-4 {
     padding-top: 10px;
     padding-bottom: 10px;
 }
