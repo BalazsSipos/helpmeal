@@ -56,10 +56,50 @@ namespace helpmeal.Services.MealService
                 nextDaysMenus.Add(i, weeklyMealViewModel.Meals);
             }
 
+            List<Meal> nextThreeDayMeals = new List<Meal>();
+            for (byte i = 1; i <= 3; i++)
+            {
+                nextThreeDayMeals.AddRange(await GetMealListByCycleDayAndUserDayAsync((byte)(today + i), user));
+            }
+
+            Dictionary<Recipe, int> aggregatedRecipes = new Dictionary<Recipe, int>();
+            Dictionary<Ingredient, int> aggregatedIngredients = new Dictionary<Ingredient, int>();
+
+            for (int mealInd = 0; mealInd < nextThreeDayMeals.Count; mealInd++)
+            {
+                if (aggregatedRecipes.ContainsKey(nextThreeDayMeals[mealInd].Recipe))
+                {
+                    aggregatedRecipes[nextThreeDayMeals[mealInd].Recipe] += nextThreeDayMeals[mealInd].Amount;
+                }
+                else
+                {
+                    aggregatedRecipes.Add(nextThreeDayMeals[mealInd].Recipe, nextThreeDayMeals[mealInd].Amount);
+                }
+
+                for (int ingredientsIndex = 0; ingredientsIndex < nextThreeDayMeals[mealInd].Recipe.RecipeIngredients.Count; ingredientsIndex++)
+                {
+                    if (aggregatedIngredients.ContainsKey(nextThreeDayMeals[mealInd].Recipe.RecipeIngredients[ingredientsIndex].Ingredient))
+                    {
+                        aggregatedIngredients[nextThreeDayMeals[mealInd].Recipe.RecipeIngredients[ingredientsIndex].Ingredient] += nextThreeDayMeals[mealInd].Amount * nextThreeDayMeals[mealInd].Recipe.RecipeIngredients[ingredientsIndex].Amount;
+                    }
+                    else
+                    {
+                        aggregatedIngredients.Add(nextThreeDayMeals[mealInd].Recipe.RecipeIngredients[ingredientsIndex].Ingredient, nextThreeDayMeals[mealInd].Amount * nextThreeDayMeals[mealInd].Recipe.RecipeIngredients[ingredientsIndex].Amount);
+                    }
+                }
+            }
+
+            /*@meal.Amount x @meal.Recipe.Name
+   @foreach(var ingredients in meal.Recipe.RecipeIngredients)
+    var amountTotal = meal.Amount * ingredients.Amount;
+    @amountTotal<span> & nbsp; &nbsp;</ span > @ingredients.Ingredient.Unit.Name<span> & nbsp; &nbsp;</ span > @ingredients.Ingredient.Name < br />*/
+
             var nextDaysMealViewModel = new NextDaysMealViewModel
             {
                 TodayMeals = todayMealList,
-                NextDaysMeals = nextDaysMenus
+                NextDaysMeals = nextDaysMenus,
+                AggregatedRecipes = aggregatedRecipes,
+                AggregatedIngredients = aggregatedIngredients
             };
             return nextDaysMealViewModel;
         }
