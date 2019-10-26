@@ -16,5 +16,8 @@ namespace helpmeal.Services.MealService
         Task<DailyMealViewModel> BuildDailyMealViewModel(byte cycleDay, ClaimsPrincipal user, Meal newMeal);
         Task AddMeal(byte cycleDay, ClaimsPrincipal user, Meal newMeal);
         Task<List<Meal>> FindMealsByUserAsync(ClaimsPrincipal user);
+        Task<byte> DeleteMeal(long mealId);
+        Task<Meal> EditMeal(long mealId, int newAmount);
+        Task<Meal> GetMealById(long mealId);
     }
 }
