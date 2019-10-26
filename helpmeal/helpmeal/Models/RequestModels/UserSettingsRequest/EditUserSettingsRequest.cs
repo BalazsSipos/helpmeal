@@ -10,6 +10,18 @@ namespace helpmeal.Models.RequestModels.UserSettingsRequest
     {
         public byte NumberOfWeeksInCycle { get; set; }
 
-        public List<byte> DaysOfShopping { get; set; }
+        public class DaysOfShopping { }
+    }
+
+    public class DaysOfShopping
+    {
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thursday { get; set; }
+        public bool Friday { get; set; }
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
+
     }
 }

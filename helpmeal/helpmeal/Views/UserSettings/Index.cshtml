@@ -11,6 +11,16 @@
         <input type="text" asp-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="form-control" />
         <span asp-validation-for="EditUserSettingsRequest.NumberOfWeeksInCycle" class="text-danger"></span>
     </div>
+    @using (Html.BeginForm("UserSettings", "Index", FormMethod.Post))
+    {
+        <span>Monday: </span> @Html.CheckBox("Monday", true)
+        <span> | Tuesday: </span> @Html.CheckBox("Tuesday", false)
+        <span> | Wednesday: </span> @Html.CheckBox("Wednesday", false)
+        <span> | Thursday: </span> @Html.CheckBox("Thursday", false)
+        <span> | Friday: </span> @Html.CheckBox("Friday", false)
+        <span> | Saturday: </span> @Html.CheckBox("Saturday", false)
+        <span> | Sunday: </span> @Html.CheckBox("Sunday", false)
+    }
     <div>
         <button type="submit" class="btn btn-primary">Save</button>
     </div>

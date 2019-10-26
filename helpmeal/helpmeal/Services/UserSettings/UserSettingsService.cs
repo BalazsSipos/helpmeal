@@ -33,7 +33,7 @@ namespace helpmeal.Services.UserSettings
             {
                 EditUserSettingsRequest = new EditUserSettingsRequest
                 {
-                    NumberOfWeeksInCycle = await GetNumberOfWeeksInCycleAsync(user)
+                    NumberOfWeeksInCycle = await GetNumberOfWeeksInCycleAsync(user),
                 }
             };
             return editUserSettingsViewModel;
@@ -43,6 +43,23 @@ namespace helpmeal.Services.UserSettings
         {
             var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
             return appUser.NumberOfWeeksInCycle;
+        }
+
+        public async Task<List<byte>> GetDaysOfShoppingAsync(ClaimsPrincipal user)
+        {
+            var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
+            List<byte> daysOfShopping = new List<byte> { };
+            if (appUser.ShoppingDaysOfWeek == null)
+            {
+                daysOfShopping.Add(1);
+                return daysOfShopping;
+            }
+            var days = appUser.ShoppingDaysOfWeek.ToList();
+            foreach (var day in days)
+            {
+                daysOfShopping.Add(day.DaysOfShopping);
+            }
+            return daysOfShopping;
         }
 
         public List<byte> GetDaysOfShoppingAsync(AppUser user)
@@ -56,11 +73,11 @@ namespace helpmeal.Services.UserSettings
             return daysOfShopping;
         }
 
-        public async Task<UserSettingsService> SetUserSettingsAsync(string email, List<byte> DaysOfShopping, byte NumberOfWeeksInCycle)
+            public async Task<UserSettingsService> SetUserSettingsAsync(string email, List<byte> DaysOfShopping, byte NumberOfWeeksInCycle)
         {
             var user = await userMgr.FindByEmailAsync(email);
             EditUserSettingsRequest userSettingsReq = new EditUserSettingsRequest();
-            userSettingsReq.DaysOfShopping = DaysOfShopping;
+            //userSettingsReq.DaysOfShopping = DaysOfShopping;
             userSettingsReq.NumberOfWeeksInCycle = NumberOfWeeksInCycle;
 
             var userSettings = mapper.Map<EditUserSettingsRequest, UserSettingsService>(userSettingsReq);
