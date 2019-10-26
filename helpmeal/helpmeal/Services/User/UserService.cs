@@ -134,12 +134,6 @@ namespace helpmeal.Services.User
             };
             return loginRequest;
         }
-
-        /*public async Task<UserSetting> GetUserSettingByUserAsync(ClaimsPrincipal user)
-        {
-            var userSetting = await applicationDbContext.UserSettings.Where(u => u.User.Email == user.Identity.Name).FirstOrDefaultAsync();
-            return userSetting;
-        }*/
     }
 }
 

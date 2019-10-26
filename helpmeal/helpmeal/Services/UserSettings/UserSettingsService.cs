@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using helpmeal.Models.Identity;
 using helpmeal.Models.RequestModels.UserSettingsRequest;
-using helpmeal.Models.ViewModel;
+using helpmeal.Models.ViewModels;
 using helpmeal.Services.User;
 using Microsoft.AspNetCore.Identity;
 using System;

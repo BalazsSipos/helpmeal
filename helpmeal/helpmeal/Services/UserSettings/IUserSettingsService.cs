@@ -1,6 +1,6 @@
 ﻿using helpmeal.Models.Identity;
 using helpmeal.Models.RequestModels.UserSettingsRequest;
-using helpmeal.Models.ViewModel;
+using helpmeal.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
