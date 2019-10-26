@@ -2,6 +2,7 @@
 using helpmeal.Models;
 using helpmeal.Services.IngredientService;
 using helpmeal.Services.UnitService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Storage.Blob;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace helpmeal.Controllers
 {
+    [Authorize]
     public class RecipeController : Controller
     {
         private readonly IUnitService unitService;
