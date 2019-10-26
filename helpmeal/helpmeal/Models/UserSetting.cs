@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace helpmeal.Models
 {
-    public class ShoppingDaysOfWeek
+    public class UserSetting
     {
-        public long ShoppingDaysOfWeekId { get; set; }
+        public long UserSettingId { get; set; }
         public AppUser User { get; set; }
-        public byte DaysOfShopping { get; set; }
+        public byte numberOfWeeksInCycle { get; set; }
     }
 }

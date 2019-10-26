@@ -10,5 +10,6 @@ namespace helpmeal.Models
         public long IngredientId { get; set; }
         public string Name { get; set; }
         public Unit Unit { get; set; }
+        public List<RecipeIngredient> RecipeIngredients { get; set; }
     }
 }

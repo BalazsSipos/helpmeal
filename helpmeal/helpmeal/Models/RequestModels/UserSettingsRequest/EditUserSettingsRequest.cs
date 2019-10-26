@@ -10,7 +10,6 @@ namespace helpmeal.Models.RequestModels.UserSettingsRequest
     {
         public byte NumberOfWeeksInCycle { get; set; }
 
-        [Required]
         public List<byte> DaysOfShopping { get; set; }
     }
 }

@@ -1,0 +1,31 @@
+﻿@model NextDaysMealViewModel
+<h1>Daily Menus</h1>
+
+@{ var collOfDailyMeals = Model.NextDaysMeals.Values; }
+
+<div class="row">
+    @for (int x = 0; x < collOfDailyMeals.Count; x++)
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-horizontal">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            @if (collOfDailyMeals[x].Count != 0)
+                            {@(collOfDailyMeals[x][0].CycleDay)}
+                        </h4>
+                        @foreach (var meal in collOfDailyMeals[x])
+                        {
+                            <p class="card-text">@meal.Recipe.Name</p>
+                        }
+                        <div class="menu-button">
+                            <form asp-controller="Meal" asp-action="Edit" method="get" asp-route-Id="@if (collOfDailyMeals[x].Count != 0) {@(collOfDailyMeals[x][0].CycleDay)}">
+                                <button type="submit" class="btn btn-warning">EDIT</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

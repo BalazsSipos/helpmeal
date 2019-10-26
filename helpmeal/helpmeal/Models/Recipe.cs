@@ -12,5 +12,6 @@ namespace helpmeal.Models
         public string ImageUri { get; set; }
         public List<Meal> Meals { get; set; }
         public string CookingMethod { get; set; }
+        public List<RecipeIngredient> RecipeIngredients { get; set; }
     }
 }

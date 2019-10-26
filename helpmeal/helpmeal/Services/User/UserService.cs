@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using helpmeal.Models;
 using helpmeal.Models.Identity;
 using helpmeal.Models.RequestModels.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace helpmeal.Services.User
 {
@@ -131,6 +134,12 @@ namespace helpmeal.Services.User
             };
             return loginRequest;
         }
+
+        /*public async Task<UserSetting> GetUserSettingByUserAsync(ClaimsPrincipal user)
+        {
+            var userSetting = await applicationDbContext.UserSettings.Where(u => u.User.Email == user.Identity.Name).FirstOrDefaultAsync();
+            return userSetting;
+        }*/
     }
 }
 

@@ -67,5 +67,12 @@ namespace helpmeal.Services.UserSettings
             await applicationDbContext.AddAsync(userSettingsReq);
             return userSettings;
         }
+
+        public async Task EditSettings(ClaimsPrincipal user, EditUserSettingsRequest editUserSettingsRequest)
+        {
+            var appUser = await userService.FindUserByNameOrEmailAsync(user.Identity.Name);
+            appUser.NumberOfWeeksInCycle = editUserSettingsRequest.NumberOfWeeksInCycle;
+            await applicationDbContext.SaveChangesAsync();
+        }
     }
 }

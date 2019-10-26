@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using helpmeal.Models.Identity;
+using helpmeal.Models.RequestModels.UserSettingsRequest;
 using helpmeal.Models.ViewModel;
 using helpmeal.Services.User;
 using helpmeal.Services.UserSettings;
@@ -22,25 +23,24 @@ namespace helpmeal.Controllers
         }
 
         [Authorize]
-        [HttpGet("/UserSettings")]
-        public async Task<IActionResult> UserSettings()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
             EditUserSettingsViewModel editUserSettingsViewModel = await userSettingsService.BuildUserSettingsViewModel(User);
             //editUserSettingsViewModel.EditUserSettingsRequest.DaysOfShopping = userSettingsService.GetDaysOfShoppingAsync(user);
             return View(editUserSettingsViewModel);
         }
 
-        /*[Authorize]
+        [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserSettingsViewModel editUserSettingsViewModel, AppUser user)
+        public async Task<IActionResult> Index(EditUserSettingsRequest editUserSettingsRequest)
         {
-            var daysOfShopping = await userSettingsService.GetDaysOfShoppingAsync(user);
-            var numberOfWeeksInCycle = await userSettingsService.GetNumberOfWeeksInCycleAsync(user);
-
-            //await UserSettingsService.SetUserSettingsAsync(User.Email, daysOfShopping, numberOfWeeksInCycle);
-
-            return View(editUserSettingsViewModel);
-        }*/
+            if (ModelState.IsValid)
+            {
+                await userSettingsService.EditSettings(User, editUserSettingsRequest);
+            }
+            return View(await userSettingsService.BuildUserSettingsViewModel(User));
+        }
 
     }
 }

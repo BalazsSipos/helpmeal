@@ -1,0 +1,25 @@
+﻿@model DailyMealViewModel
+
+    <form asp-controller="Meal" asp-action="@ViewData["Action"]" method="post">
+        <table><tr><th>Meal</th><th>Amount</th></tr>
+            @foreach (var meal in Model.Meals)
+            {
+                
+                    <tr>
+                        <td>@meal.Recipe.Name</td>
+                        <td>
+                            
+                            <input type="text" asp-for="@meal.Amount" class="form-control" />
+                            <span asp-validation-for="@meal.Amount" class="text-danger"></span>
+                        </td>
+                    </tr>
+                
+            }
+        </table>    
+            
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+    <form>
+        <button type="button" class="btn btn-info" onclick="history.back()">Cancel</button>
+    </form>
+    <br />

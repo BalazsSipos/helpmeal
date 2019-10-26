@@ -12,7 +12,7 @@ namespace helpmeal
         public static void SeedUnits(ApplicationDbContext applicationDbContext)
         {
             var temporalUnit = applicationDbContext.Units.FirstOrDefault(m => m.UnitId == 1);
-            if (temporalUnit.Equals(null))
+            if (temporalUnit == null)
             {
                 Unit unit = new Unit
                 {
@@ -269,9 +269,6 @@ namespace helpmeal
                 applicationDbContext.RecipeIngredient.Add(recipeIngredient15);
                 applicationDbContext.RecipeIngredient.Add(recipeIngredient16);
                 applicationDbContext.SaveChanges();
-
-
-
             }
         }
     }

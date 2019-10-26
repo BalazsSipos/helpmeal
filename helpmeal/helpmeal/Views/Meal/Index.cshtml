@@ -1,0 +1,37 @@
+@model WeeklySummaryViewModel
+@{
+    ViewData["Title"] = "Menu";
+}
+<br />
+<h1 class="text-center">Weekly summary</h1><br />
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Days</th>
+        <th scope="col">Meals</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < (Model.NumberOfDaysInCycle * 7); i++)
+    {
+        <tr>
+            <td>@(i+1)</td>
+            @{
+                var list = Model.MealList.Where(m => m.CycleDay == i + 1).ToList();
+                var listFoodNames = new List<string>();
+            }
+            @foreach (var meal in list)
+            {
+                listFoodNames.Add(meal.Recipe.Name);
+            }
+            <td>@string.Format(string.Join(", ", listFoodNames))</td>
+            <td>
+                <form asp-controller="Meal" asp-action="Edit" method="get" asp-route-id="@(i + 1)">
+                    <button type="submit" class="btn btn-warning">Edit</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

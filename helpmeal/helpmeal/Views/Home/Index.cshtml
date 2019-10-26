@@ -1,3 +1,10 @@
-﻿@{
+﻿@model NextDaysMealViewModel
+@{
     ViewData["Title"] = "HelpMeal";
+}
+
+@if (Model.TodayMeals.Count != 0)
+{
+    await Html.RenderPartialAsync("_ShoppingListPartial");
+    await Html.RenderPartialAsync("_DailyMenusPartial");
 }
